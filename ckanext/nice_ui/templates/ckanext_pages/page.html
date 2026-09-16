@@ -1,0 +1,37 @@
+{% ckan_extends %}
+
+{% block breadcrumb_content %}
+  <li>{% link_for _('Pages'), named_route='pages.pages_index' %}</li>
+  <li class="active"><a href="{{ h.url_for('pages.show', page=g.page.name) }}">{{ g.page.title|truncate(35) }}</a></li>
+{% endblock %}
+
+{# Same blocks as ckanext-pages, laid out as a readable article. #}
+{% block primary %}
+  <article class="module-content tw:mx-auto tw:max-w-3xl tw:py-8">
+    {% block ckanext_pages_actions %}
+      {% if h.check_access('ckanext_pages_update') %}
+        {% asset 'pages/main-css' %}
+        <div class="tw:mb-6 tw:flex tw:justify-end tw:gap-2">
+          {% link_for _('Revisions'), named_route='pages.pages_revisions', page=g.page.name, class_='btn btn-default', icon='eye' %}
+          {% link_for _('Edit'), named_route='pages.edit', page=g.page.name, class_='btn btn-primary', icon='edit' %}
+        </div>
+      {% endif %}
+    {% endblock %}
+
+    <h1 class="tw:mt-0 tw:mb-8 tw:font-display tw:text-4xl tw:font-semibold tw:leading-[1.05] tw:tracking-[-0.03em] tw:text-teal-900 tw:md:text-5xl">{{ g.page.title }}</h1>
+
+    {% block ckanext_pages_content %}
+      {% if g.page.content %}
+        <div class="ckanext-pages-content nice-prose">
+          {% if h.pages_get_wysiwyg_editor() %}
+            {{ g.page.content|safe }}
+          {% else %}
+            {{ h.render_content(g.page.content) }}
+          {% endif %}
+        </div>
+      {% else %}
+        <p class="empty tw:text-muted">{{ _('This page currently has no content') }}</p>
+      {% endif %}
+    {% endblock %}
+  </article>
+{% endblock %}

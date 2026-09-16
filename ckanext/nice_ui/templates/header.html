@@ -5,6 +5,22 @@
   <div class="nice-header">{{ super() }}</div>
 {% endblock %}
 
+{# Core's menu plus the ckanext-pages index. Groups stay in the list: whether
+   they show is ckanext.pages.group_menu's call. #}
+{% block header_site_navigation_tabs %}
+  {% set dataset_type = h.default_package_type() %}
+  {% set org_type = h.default_group_type('organization') %}
+  {% set group_type = h.default_group_type('group') %}
+  {% set tabs = [
+       (dataset_type ~ '.search', h.humanize_entity_type('package', dataset_type, 'main nav') or _('Datasets'), ['dataset', 'resource']),
+       (org_type ~ '.index', h.humanize_entity_type('organization', org_type, 'main nav') or _('Organizations'), ['organization']),
+       (group_type ~ '.index', h.humanize_entity_type('group', group_type, 'main nav') or _('Groups'), ['group'])] %}
+  {% if h.nice_ui_pages_enabled() %}
+    {% set tabs = tabs + [('pages.pages_index', _('Pages'), ['pages'])] %}
+  {% endif %}
+  {{ h.build_nav_main(*(tabs + [('home.about', _('About'))])) }}
+{% endblock %}
+
 {# The logo alone told visitors nothing; pair it with the site title. The image
    is decorative (alt="") because the title right next to it names the link. #}
 {% block header_logo %}

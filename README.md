@@ -4,7 +4,9 @@ A branded, modern look for CKAN, in Sahan'Aina's colours: a teal masthead with
 the logo and site title, dataset cards, a restyled sidebar, buttons and forms,
 and a matching footer. The home page has a photo hero with a large search, site
 statistics, a map of Madagascar's regions shaded by dataset count, a photo
-section from the field, and the newest datasets.
+section from the field, and the newest datasets. The About page presents
+Sahan'Aina, users, organizations and groups without an image get initials
+avatars in brand colours, and resource formats get file icons.
 
 Built with [Tailwind CSS](https://tailwindcss.com) v4 **on top of** CKAN's
 Bootstrap, not instead of it.
@@ -41,6 +43,12 @@ this one first.
 | `ckan.site_title`, `ckan.site_description` | Header, home page hero and footer |
 | `ckan.site_logo`, `ckan.favicon` | Left alone if set; CKAN's stock defaults are replaced by the Sahan'Aina logo and icon |
 | `ckan.featured_groups`, `ckan.featured_orgs` | Featured cards under the newest datasets |
+| `ckan.site_about` | Replaces the Sahan'Aina About page, as in core |
+| `ckan.gravatar_default = disabled` | Users without a picture get initials avatars instead of Gravatar images (organizations and groups always do) |
+
+With [ckanext-pages](https://github.com/ckan/ckanext-pages) enabled, the main
+menu links its page index and its list and page views are restyled. Load
+`nice_ui` before `pages` in `ckan.plugins` so these templates win.
 
 ## Region map
 
@@ -73,6 +81,10 @@ make i18n-compile   # after translating
 Leave a string untranslated and CKAN's own translation still applies, except
 for plurals: Babel compiles an empty plural entry as the English text, which
 then overrides CKAN's. Translate every plural (`msgstr[0]`, `msgstr[1]`).
+
+Templates format every translation with Python's `%` operator, so a literal
+`%` in a translation ("100 %") breaks the page with a 500: write `%%`, or
+rephrase.
 
 ## Why Tailwind sits on top of Bootstrap
 

@@ -1,0 +1,7 @@
+{% ckan_extends %}
+
+{% block group_item_header_image %}
+  <a class="module-image" href="{{ h.url_for(group.type ~ '.read', id=group.name) }}">
+    <img src="{{ group.image_display_url or h.nice_ui_avatar(group.title or group.name) }}" alt="{{ group.name }}" />
+  </a>
+{% endblock %}

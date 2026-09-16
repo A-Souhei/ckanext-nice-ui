@@ -1,0 +1,46 @@
+{% ckan_extends %}
+
+{% block breadcrumb_content %}
+  <li class="active">{% link_for _('Pages'), named_route='pages.pages_index' %}</li>
+{% endblock %}
+
+{# ckanext-pages drops the flash messages and breadcrumb here; bring them back. #}
+{% block main_content %}
+  {{ self.flash() }}
+  {{ self.toolbar() }}
+  <div class="wrapper no-nav">
+    {{ self.primary_content() }}
+  </div>
+{% endblock %}
+
+{# Its own heading is a hard-coded, untranslatable "Pages". #}
+{% block primary_content_inner %}
+  {% set pages = g.page.items %}
+  {% set editor = h.pages_get_wysiwyg_editor() %}
+
+  <h1 class="tw:mt-0 tw:mb-6 tw:font-display tw:text-4xl tw:font-semibold tw:tracking-[-0.03em] tw:text-teal-900">{{ _('Pages') }}</h1>
+
+  {% if pages %}
+    <ul class="list-unstyled tw:m-0 tw:grid tw:gap-4 tw:md:grid-cols-2">
+      {% for page in pages %}
+        {% set url = h.url_for('pages.show', page=page.name) %}
+        <li>
+          <a href="{{ url }}" class="tw:group tw:flex tw:h-full tw:flex-col tw:rounded-[1.25rem] tw:border tw:border-sand-200 tw:bg-white tw:p-6 tw:no-underline tw:shadow-xs tw:transition tw:hover:border-lime-500 tw:hover:shadow-md">
+            <span class="tw:font-display tw:text-2xl tw:font-semibold tw:leading-tight tw:text-teal-900">{{ page.title }}</span>
+            {% if page.content %}
+              <span class="tw:mt-3 tw:text-sm tw:leading-6 tw:text-muted">
+                {%- if editor %}{{ page.content|striptags|truncate(180) }}{% else %}{{ h.markdown_extract(page.content, extract_length=180) }}{% endif -%}
+              </span>
+            {% endif %}
+            <span class="tw:mt-auto tw:inline-flex tw:items-center tw:gap-2 tw:pt-5 tw:text-sm tw:font-semibold tw:text-olive-700">
+              {{ _('Read more') }} <i class="fa fa-arrow-right tw:transition-transform tw:group-hover:translate-x-1" aria-hidden="true"></i>
+            </span>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+    {{ g.page.pager() }}
+  {% else %}
+    <p class="empty tw:mb-0 tw:rounded-2xl tw:border tw:border-dashed tw:border-sand-200 tw:bg-sand-50 tw:p-8 tw:text-center tw:text-muted">{{ _('There are currently no pages here') }}</p>
+  {% endif %}
+{% endblock %}

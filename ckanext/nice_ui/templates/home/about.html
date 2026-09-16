@@ -1,0 +1,151 @@
+{% ckan_extends %}
+
+{# Facts about the farm come from sahan-aina.com. A sysadmin's ckan.site_about
+   still replaces the whole page, as in core. #}
+
+{% block about %}
+  {% macro section_heading(eyebrow, title) %}
+    <p class="nice-eyebrow tw:mb-4 tw:text-olive-700">{{ eyebrow }}</p>
+    <h2 class="tw:m-0 tw:font-display tw:text-3xl tw:leading-[1.08] tw:font-semibold tw:tracking-[-0.03em] tw:text-teal-900 tw:md:text-4xl">{{ title }}</h2>
+  {% endmacro %}
+
+  {% if g.site_about %}
+    {{ super() }}
+  {% else %}
+    {% set dataset_type = h.default_package_type() %}
+
+    <section class="tw:relative tw:isolate tw:overflow-hidden tw:rounded-[1.5rem] tw:bg-teal-950 tw:text-white">
+      <img class="tw:absolute tw:inset-0 tw:-z-20 tw:size-full tw:object-cover"
+           src="{{ h.url_for_static('/nice-ui/photos/soil.webp') }}" alt="" />
+      <div aria-hidden="true" class="tw:absolute tw:inset-0 tw:-z-10 tw:bg-gradient-to-r tw:from-teal-950/90 tw:via-teal-950/60 tw:to-teal-950/10"></div>
+      <div class="tw:max-w-2xl tw:px-6 tw:py-14 tw:sm:px-10 tw:md:py-20">
+        <p class="nice-eyebrow tw:mb-5 tw:text-gold">{{ _('About') }}</p>
+        <h1 class="tw:m-0 tw:font-display tw:text-4xl tw:leading-[1.02] tw:font-semibold tw:tracking-[-0.04em] tw:text-white tw:md:text-6xl">{{ g.site_title }}</h1>
+        <p class="tw:mt-5 tw:mb-0 tw:text-lg tw:leading-8 tw:text-white/85">{{ _("Open data on agroecology in Madagascar, shared by Sahan'Aina.") }}</p>
+      </div>
+    </section>
+
+    <section class="tw:mt-14 tw:grid tw:grid-cols-[minmax(0,1fr)] tw:gap-10 tw:lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] tw:lg:gap-16">
+      <div>
+        {{ section_heading("Sahan'Aina", _('A farm where every resource feeds the next')) }}
+        <p class="tw:mt-5 tw:text-base tw:leading-7 tw:text-muted">{{ _("Sahan'Aina is an integrated agroecological farm in the highlands of Madagascar. Created in 2024, it links market gardening, an orchard, livestock, fish farming and fertiliser production in a single system: what leaves one activity becomes the input of the next.") }}</p>
+        <p class="tw:text-base tw:leading-7 tw:text-muted">{{ _('The goal is concrete: produce better with less dependence, regenerate soils and show that a resilient farm can also be economically viable.') }}</p>
+        <a class="tw:inline-flex tw:items-center tw:gap-2 tw:font-semibold" href="https://sahan-aina.com" rel="noopener">sahan-aina.com <i class="fa fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+      </div>
+
+      <dl class="tw:m-0 tw:grid tw:grid-cols-2 tw:gap-3 tw:self-start">
+        {% for value, label in [
+             (h.localised_number(3000) ~ ' m²', _('pilot farm')),
+             ('3', _('interconnected poles')),
+             ('0', _('chemical inputs')),
+             ('2024', _('founded'))] %}
+          <div class="tw:flex tw:flex-col-reverse tw:rounded-2xl tw:border tw:border-sand-200 tw:bg-sand-50 tw:p-5">
+            <dt class="tw:mt-1 tw:text-xs tw:font-bold tw:tracking-[0.1em] tw:text-muted tw:uppercase">{{ label }}</dt>
+            <dd class="tw:m-0 tw:font-display tw:text-3xl tw:font-semibold tw:text-teal-900">{{ value }}</dd>
+          </div>
+        {% endfor %}
+      </dl>
+    </section>
+
+    <section class="tw:mt-16">
+      {{ section_heading(_('The system'), _('Three poles, one continuous cycle')) }}
+      <p class="tw:mt-4 tw:max-w-2xl tw:text-base tw:leading-7 tw:text-muted">{{ _('The activities do not work in silos: they exchange matter, energy and value.') }}</p>
+
+      <div class="tw:mt-8 tw:grid tw:gap-4 tw:md:grid-cols-3">
+        {% for icon, title, items in [
+             ('egg', _('Livestock and protein'), [
+               _('Poultry, ducks and turkeys; rabbits raised for their manure'),
+               _('Fish farming: tilapia, carp and catfish'),
+               _('Beekeeping and crop pollination'),
+               _('Black soldier fly larvae and mealworms')]),
+             ('carrot', _('Crops and food'), [
+               _('Market gardening fertilised entirely with rabbit manure'),
+               _('Fodder grown on the farm'),
+               _('A diverse orchard suited to the climate'),
+               _('Mulching, ollas and recycled fish-pond water')]),
+             ('recycle', _('Recovery and fertility'), [
+               _('Composting of manure and crop residues'),
+               _('Vermicompost and liquid fertiliser'),
+               _('Biochar made from woody plant matter'),
+               _('Everything returns to the soil to restart the cycle')])] %}
+          <article class="tw:rounded-[1.25rem] tw:border tw:border-sand-200 tw:bg-white tw:p-6 tw:shadow-xs">
+            <span class="tw:flex tw:size-11 tw:items-center tw:justify-center tw:rounded-full tw:bg-lime-100 tw:text-olive-700">
+              <i class="fa fa-{{ icon }}" aria-hidden="true"></i>
+            </span>
+            <h3 class="tw:mt-5 tw:mb-0 tw:font-display tw:text-xl tw:font-semibold tw:text-teal-900">{{ title }}</h3>
+            <ul class="list-unstyled tw:mt-4 tw:mb-0 tw:space-y-2">
+              {% for item in items %}
+                <li class="tw:flex tw:gap-3 tw:text-sm tw:leading-6 tw:text-muted">
+                  <span aria-hidden="true" class="tw:mt-2.5 tw:size-1.5 tw:shrink-0 tw:rounded-full tw:bg-lime-500"></span>{{ item }}
+                </li>
+              {% endfor %}
+            </ul>
+          </article>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="nice-paper tw:mt-16 tw:rounded-[1.5rem] tw:p-6 tw:sm:p-10">
+      {{ section_heading(g.site_title, _('Why share the data')) }}
+      <p class="tw:mt-4 tw:max-w-3xl tw:text-base tw:leading-7 tw:text-muted">{{ _("Sahan'Aina wants its model to travel. Akademia Sahan'Aina publishes the data behind the farm's work so that farmers, students, researchers and partners can learn from it and reuse it.") }}</p>
+
+      <div class="tw:mt-8 tw:grid tw:gap-8 tw:md:grid-cols-3">
+        {% for icon, title, text in [
+             ('seedling', _('Regenerate'), _('Improve soil structure and fertility for the long term, without chemical inputs.')),
+             ('graduation-cap', _('Pass on'), _('Train people in circular practices and grow lasting rural skills.')),
+             ('route', _('Reproduce'), _('Document a model that other Malagasy farms can adapt to their own context.'))] %}
+          <div class="tw:border-t tw:border-teal-900/15 tw:pt-5">
+            <i class="fa fa-{{ icon }} tw:text-xl tw:text-olive-700" aria-hidden="true"></i>
+            <h3 class="tw:mt-4 tw:mb-0 tw:font-display tw:text-2xl tw:font-semibold tw:text-teal-900">{{ title }}</h3>
+            <p class="tw:mt-2 tw:mb-0 tw:text-sm tw:leading-6 tw:text-muted">{{ text }}</p>
+          </div>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="tw:mt-16 tw:grid tw:grid-cols-[minmax(0,1fr)] tw:gap-6 tw:lg:grid-cols-2">
+      <div>
+        {{ section_heading(h.humanize_entity_type('package', dataset_type, 'main nav') or _('Datasets'), _('Using the data')) }}
+        <ul class="list-unstyled tw:mt-6 tw:mb-0 tw:space-y-4">
+          {% for icon, text in [
+               ('scale-balanced', _('Every dataset states its licence: check it before reusing the data.')),
+               ('table', _('Preview tables and maps in your browser, or download the files.')),
+               ('code', _('Automate downloads and updates with the CKAN API.'))] %}
+            <li class="tw:flex tw:gap-4 tw:text-base tw:leading-7 tw:text-muted">
+              <span class="tw:flex tw:size-9 tw:shrink-0 tw:items-center tw:justify-center tw:rounded-full tw:bg-lime-100 tw:text-olive-700">
+                <i class="fa fa-{{ icon }} tw:text-sm" aria-hidden="true"></i>
+              </span>
+              <span>{{ text }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+        <div class="tw:mt-8 tw:flex tw:flex-wrap tw:items-center tw:gap-x-6 tw:gap-y-3">
+          <a class="btn btn-primary tw:rounded-full tw:px-6 tw:py-3" href="{% url_for dataset_type ~ '.search' %}">{{ _('Search datasets') }}</a>
+          <a class="tw:font-semibold" href="https://docs.ckan.org/en/2.11/api/" rel="noopener">{{ _('API documentation') }} <i class="fa fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+        </div>
+        <p class="tw:mt-8 tw:mb-0 tw:text-sm tw:text-muted">{{ _("Akademia Sahan'Aina runs on CKAN, the open-source data portal software.") }} <a href="https://ckan.org" rel="noopener">ckan.org</a></p>
+      </div>
+
+      <div class="tw:rounded-[1.5rem] tw:border tw:border-sand-200 tw:bg-sand-50 tw:p-6 tw:sm:p-8">
+        {{ section_heading(_('Contact'), _('Talk to the team')) }}
+        <p class="tw:mt-4 tw:text-base tw:leading-7 tw:text-muted">{{ _('A question about a dataset, or data to share? Write to us.') }}</p>
+        <ul class="list-unstyled tw:mt-6 tw:mb-0 tw:divide-y tw:divide-sand-200 tw:border-y tw:border-sand-200">
+          {% for icon, label, href in [
+               ('fa fa-envelope', 'izahay.sahanaina@gmail.com', 'mailto:izahay.sahanaina@gmail.com'),
+               ('fa fa-globe', 'sahan-aina.com', 'https://sahan-aina.com'),
+               ('fa-brands fa-facebook', 'Facebook', 'https://www.facebook.com/people/Sahanaina/100081600051413/'),
+               ('fa-brands fa-linkedin', 'LinkedIn', 'https://www.linkedin.com/company/sah-anai')] %}
+            <li>
+              <a class="tw:flex tw:items-center tw:gap-4 tw:py-4 tw:font-semibold tw:text-teal-900 tw:no-underline tw:hover:text-olive-700" href="{{ href }}"{% if not href.startswith('mailto:') %} rel="noopener"{% endif %}>
+                <span class="tw:flex tw:size-10 tw:shrink-0 tw:items-center tw:justify-center tw:rounded-full tw:bg-white tw:text-olive-700 tw:ring-1 tw:ring-sand-200">
+                  <i class="{{ icon }}" aria-hidden="true"></i>
+                </span>
+                <span class="tw:min-w-0 tw:break-words">{{ label }}</span>
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </section>
+  {% endif %}
+{% endblock %}

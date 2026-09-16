@@ -1,0 +1,5 @@
+{% ckan_extends %}
+
+{% block image %}
+  <img src="{{ organization.image_display_url or h.nice_ui_avatar(organization.title or organization.name) }}" alt="{{ organization.name }}" class="img-fluid media-image">
+{% endblock %}
