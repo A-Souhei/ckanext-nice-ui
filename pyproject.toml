@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ckanext-nice-ui"
+version = "0.1.0"
+description = "A branded, modern look for CKAN, built with Tailwind CSS on top of CKAN's Bootstrap"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "AGPL-3.0-or-later"}
+keywords = ["CKAN", "theme", "tailwindcss", "ui"]
+classifiers = [
+    "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)",
+    "Programming Language :: Python :: 3.10",
+]
+
+[project.urls]
+Repository = "https://github.com/A-Souhei/ckanext-nice-ui"
+
+[project.entry-points."ckan.plugins"]
+nice_ui = "ckanext.nice_ui.plugin:NiceUiPlugin"
+
+[tool.setuptools.packages.find]
+include = ["ckanext*"]
+
+[tool.setuptools.package-data]
+"ckanext.nice_ui" = ["assets/*", "public/nice-ui/*", "templates/**/*.html"]

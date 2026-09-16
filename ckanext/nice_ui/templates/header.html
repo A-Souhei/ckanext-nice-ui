@@ -1,0 +1,17 @@
+{% ckan_extends %}
+
+{# The logo alone told visitors nothing; pair it with the site title. The image
+   is decorative (alt="") because the title right next to it names the link. #}
+{% block header_logo %}
+  <a class="tw:flex tw:items-center tw:gap-3 tw:py-1 tw:no-underline" href="{{ h.url_for('home.index') }}">
+    {% if g.site_logo %}
+      <img class="tw:h-11 tw:w-auto" src="{{ h.url_for_static_or_external(g.site_logo) }}" alt="" />
+    {% endif %}
+    <span class="tw:flex tw:flex-col tw:leading-tight">
+      <span class="tw:text-lg tw:font-bold tw:tracking-tight tw:text-white">{{ g.site_title }}</span>
+      {% if g.site_description %}
+        <span class="tw:text-xs tw:font-medium tw:text-lime-300">{{ g.site_description }}</span>
+      {% endif %}
+    </span>
+  </a>
+{% endblock %}

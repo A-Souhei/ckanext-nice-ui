@@ -1,0 +1,6 @@
+# No cssrewrite: it cannot map an extension's source path to a URL, and CKAN
+# then drops the stylesheet silently. The CSS only uses absolute URLs anyway.
+main:
+  output: nice-ui/%(version)s_main.css
+  contents:
+    - nice-ui.css

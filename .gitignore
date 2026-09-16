@@ -1,0 +1,4 @@
+__pycache__/
+*.egg-info/
+# The pinned Tailwind binary `make css` downloads.
+.tailwind/

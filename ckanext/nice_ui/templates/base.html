@@ -1,0 +1,7 @@
+{% ckan_extends %}
+
+{# After CKAN's theme, so equal-specificity rules here win. #}
+{% block styles %}
+  {{ super() }}
+  {% asset 'nice-ui/main' %}
+{% endblock %}

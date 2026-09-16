@@ -1,0 +1,105 @@
+{% ckan_extends %}
+
+{# Every label here is an existing CKAN string, so the portal's translations
+   (e.g. ckanext-tomalagasy) already cover the page. #}
+{% block primary_content %}
+  {% set dataset_type = h.default_package_type() %}
+  {% set datasets_label = h.humanize_entity_type('package', dataset_type, 'main nav') or _('Datasets') %}
+  {% set stats = h.get_site_statistics() %}
+  {% set tags = h.get_facet_items_dict('tags', search_facets, limit=6) %}
+  {% set new_datasets = h.nice_ui_new_datasets(3) %}
+
+  <div role="main">
+    <section class="tw:relative tw:overflow-hidden tw:bg-teal-900 tw:text-white">
+      <div aria-hidden="true" class="tw:pointer-events-none tw:absolute tw:-top-32 tw:-right-24 tw:size-[28rem] tw:rounded-full tw:bg-lime-500/20 tw:blur-3xl"></div>
+      <div aria-hidden="true" class="tw:pointer-events-none tw:absolute tw:-bottom-40 tw:-left-24 tw:size-[28rem] tw:rounded-full tw:bg-teal-700/50 tw:blur-3xl"></div>
+
+      <div class="container tw:relative tw:py-14 tw:md:py-20">
+        {# minmax(0,1fr): an auto track grows to the search input's intrinsic
+           width and pushes the button off small screens. #}
+        <div class="tw:grid tw:grid-cols-[minmax(0,1fr)] tw:items-center tw:gap-10 tw:lg:grid-cols-[minmax(0,1fr)_auto]">
+          <div class="tw:max-w-2xl">
+            <h1 class="tw:text-4xl tw:font-extrabold tw:tracking-tight tw:text-white tw:md:text-5xl">{{ g.site_title }}</h1>
+            {% if g.site_description %}
+              <p class="tw:mt-4 tw:text-lg tw:text-white/80">{{ g.site_description }}</p>
+            {% endif %}
+
+            <form class="tw:mt-8" method="get" action="{% url_for dataset_type ~ '.search' %}" role="search">
+              <label class="visually-hidden" for="field-main-search">{{ h.humanize_entity_type('package', dataset_type, 'search placeholder') or _('Search datasets') }}</label>
+              <div class="tw:flex tw:items-center tw:gap-2 tw:rounded-2xl tw:bg-white tw:p-2 tw:shadow-2xl tw:shadow-black/25">
+                <i class="fa fa-search tw:ml-3 tw:text-muted" aria-hidden="true"></i>
+                <input id="field-main-search" type="search" name="q" autocomplete="off"
+                       placeholder="{{ _('E.g. environment') }}"
+                       class="tw:min-w-0 tw:flex-1 tw:border-0 tw:bg-transparent tw:px-2 tw:py-3 tw:text-lg tw:text-ink tw:outline-none" />
+                <button type="submit" class="btn btn-primary tw:rounded-xl tw:px-6 tw:py-3">{{ _('Search') }}</button>
+              </div>
+            </form>
+
+            {% if tags %}
+              <div class="tw:mt-6 tw:flex tw:flex-wrap tw:items-center tw:gap-2">
+                <span class="tw:mr-1 tw:text-sm tw:font-semibold tw:text-white/70">{{ _('Popular tags') }}</span>
+                {% for tag in tags %}
+                  <a href="{% url_for dataset_type ~ '.search', tags=tag.name %}"
+                     class="tw:rounded-full tw:bg-white/10 tw:px-3 tw:py-1 tw:text-sm tw:font-medium tw:text-white tw:no-underline tw:ring-1 tw:ring-white/15 tw:transition-colors tw:hover:bg-lime-300 tw:hover:text-teal-950">{{ tag.display_name|truncate(22) }}</a>
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+
+          <div aria-hidden="true" class="tw:hidden tw:lg:flex tw:size-64 tw:items-center tw:justify-center tw:rounded-full tw:bg-sand-50 tw:shadow-2xl tw:shadow-black/30 tw:ring-8 tw:ring-white/10">
+            <img class="tw:h-44 tw:w-auto" src="{{ h.url_for_static('/nice-ui/logo-color.png') }}" alt="" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="tw:border-b tw:border-sand-200 tw:bg-white">
+      <div class="container">
+        <ul class="list-unstyled tw:m-0 tw:grid tw:grid-cols-3 tw:divide-x tw:divide-sand-200">
+          {% for count, label, route in [
+               (stats.dataset_count, datasets_label, dataset_type ~ '.search'),
+               (stats.organization_count, _('Organizations'), 'organization.index'),
+               (stats.group_count, _('Groups'), 'group.index')] %}
+            <li>
+              <a href="{{ h.url_for(route) }}" class="tw:flex tw:flex-col tw:items-center tw:gap-1 tw:py-6 tw:no-underline tw:transition-colors tw:hover:bg-sand-50">
+                <span class="tw:text-3xl tw:font-extrabold tw:text-teal-900">{{ h.localised_number(count) }}</span>
+                <span class="tw:text-xs tw:font-bold tw:tracking-wider tw:text-muted tw:uppercase">{{ label }}</span>
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </section>
+
+    {% if new_datasets %}
+      <section class="tw:py-12">
+        <div class="container">
+          <div class="tw:mb-6 tw:flex tw:items-end tw:justify-between tw:gap-4">
+            <h2 class="tw:m-0 tw:text-2xl tw:font-bold tw:text-teal-900">{{ _('New datasets') }}</h2>
+            <a class="tw:font-semibold" href="{% url_for dataset_type ~ '.search' %}">{{ datasets_label }} &rarr;</a>
+          </div>
+          <ul class="list-unstyled tw:m-0 tw:grid tw:gap-5 tw:md:grid-cols-3">
+            {% for package in new_datasets %}
+              {% snippet 'snippets/package_item.html', package=package, item_class='dataset-item tw:h-full' %}
+            {% endfor %}
+          </ul>
+        </div>
+      </section>
+    {% endif %}
+
+    {% if h.get_featured_groups() or h.get_featured_organizations() %}
+      <section class="tw:pb-12">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6">
+              {% block featured_group %}{{ super() }}{% endblock %}
+            </div>
+            <div class="col-md-6">
+              {% block featured_organization %}{{ super() }}{% endblock %}
+            </div>
+          </div>
+        </div>
+      </section>
+    {% endif %}
+  </div>
+{% endblock %}

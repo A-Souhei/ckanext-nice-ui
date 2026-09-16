@@ -1,0 +1,477 @@
+/* Tailwind as a layer on top of CKAN's Bootstrap 5.1.3, never instead of it.
+ *
+ * - No preflight: Bootstrap's Reboot owns the base styles.
+ * - prefix(tw): CKAN's templates use `collapse`, `container`, `hidden`,
+ *   `table`, `block`… which Tailwind would redefine (its `collapse` would hide
+ *   the mobile navbar). Only `tw:`-prefixed classes are ever generated.
+ * - important: utilities live in a cascade layer, and unlayered Bootstrap rules
+ *   beat layered ones whatever their specificity.
+ *
+ * The component rules below are deliberately unlayered: they restyle
+ * Bootstrap's and CKAN's own classes, so every page changes — including pages
+ * from other extensions — and they win over CKAN's main.css by loading after it
+ * with the same selectors.
+ */
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme) prefix(tw);
+@import "tailwindcss/utilities.css" layer(utilities) important;
+
+@source "../ckanext/nice_ui/templates";
+
+/* The palette lives in unlayered custom properties and the theme points at
+   them (`inline`). Browsers without cascade layers (before 2022) drop every
+   @layer block, Tailwind's own theme variables included; if the component
+   rules below read those, `.btn-primary` would lose its background and keep
+   white text — invisible. Unlayered, the restyle survives there too.
+
+   Contrast (WCAG): brand olive #64820a is 4.43:1 with white, so text and
+   buttons use olive-700 (6.26:1); olive-600 stays decorative. */
+:root {
+  --brand-teal-950: #001f19;
+  --brand-teal-900: #003228;
+  --brand-teal-800: #0a4a3d;
+  --brand-teal-700: #11614f;
+  --brand-olive-800: #3f5306;
+  --brand-olive-700: #4f6908;
+  --brand-olive-600: #64820a;
+  --brand-lime-500: #78a014;
+  --brand-lime-300: #b5d56a;
+  --brand-lime-100: #eaf3d3;
+  --brand-ink: #0a1e00;
+  --brand-sand-50: #f7f9f4;
+  --brand-sand-100: #eef2e8;
+  --brand-sand-200: #dfe6d6;
+  --brand-muted: #4b5a4f;
+  --brand-font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+}
+
+@theme inline {
+  --color-teal-950: var(--brand-teal-950);
+  --color-teal-900: var(--brand-teal-900);
+  --color-teal-800: var(--brand-teal-800);
+  --color-teal-700: var(--brand-teal-700);
+  --color-olive-800: var(--brand-olive-800);
+  --color-olive-700: var(--brand-olive-700);
+  --color-olive-600: var(--brand-olive-600);
+  --color-lime-500: var(--brand-lime-500);
+  --color-lime-300: var(--brand-lime-300);
+  --color-lime-100: var(--brand-lime-100);
+  --color-ink: var(--brand-ink);
+  --color-sand-50: var(--brand-sand-50);
+  --color-sand-100: var(--brand-sand-100);
+  --color-sand-200: var(--brand-sand-200);
+  --color-muted: var(--brand-muted);
+  --font-sans: var(--brand-font-sans);
+}
+
+/* Page ------------------------------------------------------------------- */
+
+body {
+  font-family: var(--brand-font-sans);
+  color: var(--brand-ink);
+  background-color: var(--brand-sand-50);
+}
+
+.main,
+.homepage .module-feeds {
+  background: var(--brand-sand-50);
+}
+
+a {
+  color: var(--brand-olive-700);
+}
+
+a:hover,
+a:focus {
+  color: var(--brand-olive-800);
+}
+
+:focus-visible {
+  outline: 3px solid var(--brand-lime-500);
+  outline-offset: 2px;
+}
+
+/* Account bar and masthead ----------------------------------------------- */
+
+.account-masthead {
+  background: var(--brand-teal-950);
+}
+
+.account-masthead .account ul li {
+  border-left-color: rgb(255 255 255 / 0.08);
+}
+
+.account-masthead .account ul li a,
+.account-masthead .account ul li .btn-link {
+  color: rgb(255 255 255 / 0.78);
+  font-weight: 600;
+}
+
+.account-masthead .account ul li a:hover,
+.account-masthead .account ul li .btn-link:hover {
+  color: #fff;
+  background-color: rgb(255 255 255 / 0.06);
+}
+
+.account-masthead .account.authed .image img {
+  border-radius: 9999px;
+}
+
+.masthead {
+  background: linear-gradient(135deg, var(--brand-teal-900) 0%, var(--brand-teal-800) 100%);
+}
+
+.masthead .main-navbar ul li a {
+  color: rgb(255 255 255 / 0.85);
+  font-weight: 600;
+  border-radius: 9999px;
+}
+
+.masthead .main-navbar ul li:hover a,
+.masthead .main-navbar ul li:focus a {
+  color: #fff;
+  background-color: rgb(255 255 255 / 0.08);
+}
+
+.masthead .main-navbar ul li.active a,
+.masthead .main-navbar ul li.active:hover a {
+  color: var(--brand-teal-950);
+  background-color: var(--brand-lime-300);
+}
+
+.masthead .site-search .form-control {
+  color: #fff;
+  background-color: rgb(255 255 255 / 0.1);
+  border-color: rgb(255 255 255 / 0.18);
+  border-radius: 9999px;
+  padding-left: 1rem;
+  padding-right: 2.75rem;
+}
+
+.masthead .site-search .form-control::placeholder {
+  color: rgb(255 255 255 / 0.6);
+}
+
+.masthead .site-search .form-control:focus {
+  background-color: rgb(255 255 255 / 0.16);
+  border-color: var(--brand-lime-300);
+  box-shadow: 0 0 0 0.2rem rgb(181 213 106 / 0.3);
+}
+
+.masthead .site-search .btn {
+  color: rgb(255 255 255 / 0.8);
+}
+
+/* Content panels --------------------------------------------------------- */
+
+.wrapper,
+.box {
+  border: 1px solid var(--brand-sand-200);
+  border-radius: 1rem;
+  box-shadow: 0 1px 2px rgb(10 30 0 / 0.05), 0 12px 32px -18px rgb(10 30 0 / 0.2);
+}
+
+.wrapper:before {
+  border-right-color: var(--brand-sand-200);
+}
+
+.module-heading {
+  background-color: transparent;
+  border-color: var(--brand-sand-200);
+}
+
+/* Small caps only for sidebar section titles (facets, "Followers"…), not for
+   the group and organization names CKAN also renders as module headings. */
+.secondary .module-heading,
+.module-narrow .module-heading {
+  color: var(--brand-muted);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.module:first-child .module-heading {
+  border-radius: 1rem 0 0 0;
+}
+
+.nav-simple > li,
+.nav-aside > li {
+  border-bottom: 1px solid var(--brand-sand-100);
+}
+
+.module-narrow .nav-item > a,
+.module-narrow .nav-aside li a {
+  color: var(--brand-ink);
+}
+
+.module-narrow .nav-item > a:hover,
+.module-narrow .nav-aside li a:hover {
+  background-color: var(--brand-lime-100);
+}
+
+.module-narrow .nav-item > a .badge,
+.module-narrow .nav-aside li a .badge {
+  color: var(--brand-teal-900);
+  background-color: var(--brand-sand-200);
+}
+
+.module-narrow .nav-item.active > a,
+.module-narrow .nav-aside li.active a,
+.module-narrow .nav-item.active > a:hover,
+.module-narrow .nav-aside li.active a:hover {
+  color: #fff;
+  background-color: var(--brand-olive-700);
+}
+
+.module-narrow .nav-item.active > a:before,
+.module-narrow .nav-aside li.active a:before {
+  border-left-color: var(--brand-olive-700);
+}
+
+.module-narrow .nav-item.active > a .badge,
+.module-narrow .nav-aside li.active a .badge {
+  color: #fff;
+  background-color: rgb(255 255 255 / 0.2);
+}
+
+.toolbar .breadcrumb {
+  font-size: 0.9375rem;
+}
+
+.toolbar .breadcrumb a {
+  color: var(--brand-muted);
+}
+
+.toolbar .breadcrumb a:hover {
+  color: var(--brand-olive-700);
+}
+
+.toolbar .breadcrumb .active a,
+.toolbar .breadcrumb a.active {
+  color: var(--brand-teal-900);
+}
+
+.page-header {
+  background-color: transparent;
+  border-bottom-color: var(--brand-sand-200);
+}
+
+.page-header .nav-tabs li a {
+  color: var(--brand-muted);
+  font-weight: 600;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+}
+
+.page-header .nav-tabs li a:hover,
+.page-header .nav-tabs li a:focus {
+  color: var(--brand-teal-900);
+  border-bottom-color: var(--brand-sand-200);
+}
+
+.page-header .nav-tabs li.active a,
+.page-header .nav-tabs li a.active {
+  color: var(--brand-teal-900);
+  background-color: transparent;
+  border-bottom-color: var(--brand-lime-500);
+}
+
+/* Buttons and forms ------------------------------------------------------ */
+
+.btn {
+  border-radius: 0.625rem;
+  font-weight: 600;
+}
+
+.btn-primary,
+.btn-primary:disabled,
+.btn-primary.disabled {
+  color: #fff;
+  background-color: var(--brand-olive-700);
+  border-color: var(--brand-olive-700);
+  box-shadow: none;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-check:focus + .btn-primary {
+  color: #fff;
+  background-color: var(--brand-olive-800);
+  border-color: var(--brand-olive-800);
+}
+
+.btn-primary:active,
+.btn-primary.active,
+.btn-check:checked + .btn-primary,
+.btn-check:active + .btn-primary,
+.show > .btn-primary.dropdown-toggle {
+  color: #fff;
+  background-color: var(--brand-teal-900);
+  border-color: var(--brand-teal-900);
+}
+
+.btn-primary:focus,
+.btn-check:focus + .btn-primary,
+.btn-primary:active:focus,
+.btn-check:checked + .btn-primary:focus,
+.btn-check:active + .btn-primary:focus {
+  box-shadow: 0 0 0 0.25rem rgb(120 160 20 / 0.35);
+}
+
+.btn-default {
+  color: var(--brand-teal-900);
+  background-color: #fff;
+  border-color: var(--brand-sand-200);
+}
+
+.btn-default:hover,
+.btn-default:focus {
+  color: var(--brand-teal-900);
+  background-color: var(--brand-sand-100);
+  border-color: var(--brand-sand-200);
+}
+
+.form-control,
+.form-select {
+  border-color: var(--brand-sand-200);
+  border-radius: 0.625rem;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--brand-lime-500);
+  box-shadow: 0 0 0 0.25rem rgb(120 160 20 / 0.25);
+}
+
+.pagination .page-link {
+  color: var(--brand-olive-700);
+  border-color: var(--brand-sand-200);
+}
+
+.pagination .page-item.active .page-link {
+  color: #fff;
+  background-color: var(--brand-olive-700);
+  border-color: var(--brand-olive-700);
+}
+
+/* Tags, badges and datasets ---------------------------------------------- */
+
+.tag {
+  color: var(--brand-teal-900);
+  background-color: var(--brand-lime-100);
+  border-color: transparent;
+  border-radius: 9999px;
+  padding: 0.15rem 0.75rem;
+  font-weight: 500;
+}
+
+a.tag:hover {
+  color: #fff;
+  background-color: var(--brand-olive-700);
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.tag-list {
+  background-color: transparent;
+  border: 0;
+  padding: 0;
+}
+
+.badge {
+  border-radius: 9999px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* Format badges: CKAN's palette recoloured to AA-contrast shades. */
+.badge[data-format*=csv] { background-color: var(--brand-olive-700); }
+.badge[data-format*=xls] { background-color: #15803d; }
+.badge[data-format*=json],
+.badge[data-format*=xml] { background-color: #b45309; }
+.badge[data-format*=pdf] { background-color: #b91c1c; }
+.badge[data-format*=html],
+.badge[data-format*=text] { background-color: var(--brand-teal-700); }
+.badge[data-format*=api] { background-color: #9d174d; }
+.badge[data-format*=zip] { background-color: #4b5563; }
+
+/* Plain CSS rather than tw: utilities so the card can be flattened where CKAN
+   nests dataset items inside another panel (featured groups/organizations). */
+.dataset-item,
+.dataset-item:last-of-type {
+  background-color: #fff;
+  border: 1px solid var(--brand-sand-200);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 1px 2px rgb(10 30 0 / 0.05);
+  transition: box-shadow 0.15s ease-in-out;
+}
+
+.dataset-item:hover {
+  box-shadow: 0 1px 2px rgb(10 30 0 / 0.05), 0 12px 28px -16px rgb(10 30 0 / 0.28);
+}
+
+.box .dataset-item,
+.box .dataset-item:last-of-type,
+.box .dataset-item:hover {
+  border: 0;
+  border-top: 1px solid var(--brand-sand-100);
+  border-radius: 0;
+  margin-bottom: 0;
+  box-shadow: none;
+}
+
+.dataset-resources {
+  margin-top: 0.75rem;
+}
+
+.dataset-heading {
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.dataset-heading a {
+  color: var(--brand-teal-900);
+}
+
+.dataset-heading a:hover {
+  color: var(--brand-olive-700);
+  text-decoration: none;
+}
+
+.dataset-content {
+  color: var(--brand-muted);
+}
+
+.resource-item {
+  border-radius: 0.75rem;
+}
+
+.resource-item:hover {
+  background-color: var(--brand-lime-100);
+}
+
+.resource-item .heading {
+  color: var(--brand-teal-900);
+}
+
+/* Footer ----------------------------------------------------------------- */
+
+.site-footer {
+  background: var(--brand-teal-950);
+  padding: 3rem 0 2rem;
+}
+
+.site-footer a,
+.site-footer label,
+.site-footer .attribution p {
+  color: rgb(255 255 255 / 0.75);
+}
+
+.site-footer a:hover {
+  color: var(--brand-lime-300);
+}

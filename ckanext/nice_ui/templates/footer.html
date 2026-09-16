@@ -1,0 +1,33 @@
+{% ckan_extends %}
+
+{# Same blocks as core (footer_nav, footer_links, footer_links_ckan,
+   footer_attribution, footer_lang), so extensions extending them keep working. #}
+{% block footer_content %}
+  <div class="tw:grid tw:gap-10 tw:md:grid-cols-[2fr_1fr_1fr]">
+    <div class="tw:flex tw:items-start tw:gap-4">
+      <img class="tw:h-14 tw:w-auto" src="{{ h.url_for_static('/nice-ui/logo-white.png') }}" alt="" />
+      <div>
+        <p class="tw:mb-1 tw:text-lg tw:font-bold tw:text-white">{{ g.site_title }}</p>
+        {% if g.site_description %}
+          <p class="tw:mb-0 tw:max-w-sm tw:text-sm">{{ g.site_description }}</p>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="footer-links tw:space-y-3">
+      {% block footer_nav %}
+        <ul class="list-unstyled tw:mb-0 tw:space-y-2">
+          {% block footer_links %}{{ super() }}{% endblock %}
+        </ul>
+        <ul class="list-unstyled tw:mb-0 tw:space-y-2">
+          {% block footer_links_ckan %}{{ super() }}{% endblock %}
+        </ul>
+      {% endblock %}
+    </div>
+
+    <div class="attribution tw:space-y-4">
+      {% block footer_attribution %}{{ super() }}{% endblock %}
+      {% block footer_lang %}{{ super() }}{% endblock %}
+    </div>
+  </div>
+{% endblock %}
