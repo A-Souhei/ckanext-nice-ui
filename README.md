@@ -1,9 +1,10 @@
 # ckanext-nice-ui
 
 A branded, modern look for CKAN, in Sahan'Aina's colours: a teal masthead with
-the logo and site title, a home page with a large search, site statistics and
-the newest datasets, dataset cards, a restyled sidebar, buttons and forms, and a
-matching footer.
+the logo and site title, dataset cards, a restyled sidebar, buttons and forms,
+and a matching footer. The home page has a photo hero with a large search, site
+statistics, a map of Madagascar's regions shaded by dataset count, a photo
+section from the field, and the newest datasets.
 
 Built with [Tailwind CSS](https://tailwindcss.com) v4 **on top of** CKAN's
 Bootstrap, not instead of it.
@@ -31,8 +32,7 @@ searches. The compiled CSS is committed, so installing needs no Node or Tailwind
 
 If you also run a translation extension that harvests template strings (such as
 [ckanext-tomalagasy](https://github.com/A-Souhei/ckanext-tomalagasy)), install
-this one first. Every label the templates add is an existing CKAN string, so
-existing translations already cover them.
+this one first.
 
 ## Configuration
 
@@ -41,6 +41,38 @@ existing translations already cover them.
 | `ckan.site_title`, `ckan.site_description` | Header, home page hero and footer |
 | `ckan.site_logo`, `ckan.favicon` | Left alone if set; CKAN's stock defaults are replaced by the Sahan'Aina logo and icon |
 | `ckan.featured_groups`, `ckan.featured_orgs` | Featured cards under the newest datasets |
+
+## Region map
+
+A public dataset counts towards a region when one of its tags is the region's
+name — `Analamanga`, `Matsiatra Ambony` or `Haute Matsiatra`; case, accents,
+spaces and hyphens are ignored. Each region links to its datasets, and one facet
+query covers all 24.
+
+The outlines in `ckanext/nice_ui/data/madagascar_regions.json` are simplified
+from OCHA's [administrative boundaries](https://data.humdata.org/dataset/cod-ab-mdg)
+(BNGRC, CC BY-IGO), credited under the map. To rebuild them, or to add a
+spelling to a region's aliases, edit `tools/build_madagascar_map.py` and run it
+on `mdg_admin1.geojson` from that dataset (standard library only):
+
+```sh
+python3 tools/build_madagascar_map.py mdg_admin1.geojson
+```
+
+## Translations
+
+The few strings the templates add beyond CKAN's own are in
+`ckanext/nice_ui/i18n`, with French shipped here and Malagasy in
+ckanext-tomalagasy. After changing template text:
+
+```sh
+make i18n-extract   # refresh the .pot and the French .po
+make i18n-compile   # after translating
+```
+
+Leave a string untranslated and CKAN's own translation still applies, except
+for plurals: Babel compiles an empty plural entry as the English text, which
+then overrides CKAN's. Translate every plural (`msgstr[0]`, `msgstr[1]`).
 
 ## Why Tailwind sits on top of Bootstrap
 
@@ -109,5 +141,8 @@ You should have received a copy of the GNU Affero General Public License along
 with this program (see [LICENSE](LICENSE)). If not, see
 <https://www.gnu.org/licenses/>.
 
-The Sahan'Aina logos under `ckanext/nice_ui/public/nice-ui/` are brand assets and
-are not covered by this license.
+The Sahan'Aina logos and photos under `ckanext/nice_ui/public/nice-ui/` are brand
+assets and are not covered by this license. The region boundaries are BNGRC /
+OCHA data under CC BY-IGO. The Fraunces font files under
+`ckanext/nice_ui/public/nice-ui/fonts/` are under the SIL Open Font License
+(see `OFL.txt` there).

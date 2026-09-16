@@ -1,69 +1,71 @@
 {% ckan_extends %}
 
-{# Every label here is an existing CKAN string, so the portal's translations
-   (e.g. ckanext-tomalagasy) already cover the page. #}
+{# Lets the header sit over the hero photo on this page only. #}
+{% block bodytag %}{{ super() }} class="nice-home"{% endblock %}
+
+{# Labels are CKAN's own strings where one exists; the few new ones ship in this
+   extension's catalog (see i18n/). #}
 {% block primary_content %}
   {% set dataset_type = h.default_package_type() %}
   {% set datasets_label = h.humanize_entity_type('package', dataset_type, 'main nav') or _('Datasets') %}
   {% set stats = h.get_site_statistics() %}
   {% set tags = h.get_facet_items_dict('tags', search_facets, limit=6) %}
   {% set new_datasets = h.nice_ui_new_datasets(3) %}
+  {% set madagascar = h.nice_ui_madagascar_map() %}
 
   <div role="main">
-    <section class="tw:relative tw:overflow-hidden tw:bg-teal-900 tw:text-white">
-      <div aria-hidden="true" class="tw:pointer-events-none tw:absolute tw:-top-32 tw:-right-24 tw:size-[28rem] tw:rounded-full tw:bg-lime-500/20 tw:blur-3xl"></div>
-      <div aria-hidden="true" class="tw:pointer-events-none tw:absolute tw:-bottom-40 tw:-left-24 tw:size-[28rem] tw:rounded-full tw:bg-teal-700/50 tw:blur-3xl"></div>
 
-      <div class="container tw:relative tw:py-14 tw:md:py-20">
-        {# minmax(0,1fr): an auto track grows to the search input's intrinsic
-           width and pushes the button off small screens. #}
-        <div class="tw:grid tw:grid-cols-[minmax(0,1fr)] tw:items-center tw:gap-10 tw:lg:grid-cols-[minmax(0,1fr)_auto]">
-          <div class="tw:max-w-2xl">
-            <h1 class="tw:text-4xl tw:font-extrabold tw:tracking-tight tw:text-white tw:md:text-5xl">{{ g.site_title }}</h1>
-            {% if g.site_description %}
-              <p class="tw:mt-4 tw:text-lg tw:text-white/80">{{ g.site_description }}</p>
-            {% endif %}
+    {# Hero ----------------------------------------------------------- #}
+    <section class="tw:relative tw:isolate tw:flex tw:min-h-[min(100svh,54rem)] tw:flex-col tw:overflow-hidden tw:bg-teal-950 tw:text-white">
+      <img class="tw:absolute tw:inset-0 tw:-z-30 tw:size-full tw:object-cover tw:object-[65%_center] tw:brightness-[0.92] tw:lg:object-center"
+           src="{{ h.url_for_static('/nice-ui/photos/hero-1600.webp') }}"
+           srcset="{{ h.url_for_static('/nice-ui/photos/hero-960.webp') }} 960w, {{ h.url_for_static('/nice-ui/photos/hero-1600.webp') }} 1600w"
+           sizes="100vw" alt="" fetchpriority="high" />
+      <div aria-hidden="true" class="nice-hero-shade tw:absolute tw:inset-0 tw:-z-20"></div>
+      <div aria-hidden="true" class="nice-grain tw:absolute tw:inset-0 tw:-z-10 tw:opacity-20 tw:mix-blend-soft-light"></div>
 
-            <form class="tw:mt-8" method="get" action="{% url_for dataset_type ~ '.search' %}" role="search">
-              <label class="visually-hidden" for="field-main-search">{{ h.humanize_entity_type('package', dataset_type, 'search placeholder') or _('Search datasets') }}</label>
-              <div class="tw:flex tw:items-center tw:gap-2 tw:rounded-2xl tw:bg-white tw:p-2 tw:shadow-2xl tw:shadow-black/25">
-                <i class="fa fa-search tw:ml-3 tw:text-muted" aria-hidden="true"></i>
-                <input id="field-main-search" type="search" name="q" autocomplete="off"
-                       placeholder="{{ _('E.g. environment') }}"
-                       class="tw:min-w-0 tw:flex-1 tw:border-0 tw:bg-transparent tw:px-2 tw:py-3 tw:text-lg tw:text-ink tw:outline-none" />
-                <button type="submit" class="btn btn-primary tw:rounded-xl tw:px-6 tw:py-3">{{ _('Search') }}</button>
-              </div>
-            </form>
+      <div class="container tw:flex tw:flex-1 tw:flex-col tw:justify-center tw:pt-40 tw:pb-12 tw:md:pt-44">
+        <div class="tw:max-w-[50rem]">
+          <p class="nice-eyebrow tw:mb-6 tw:text-gold">
+            <i class="fa fa-location-dot" aria-hidden="true"></i>{{ _('Madagascar') }}
+          </p>
+          <h1 class="tw:m-0 tw:font-display tw:text-5xl tw:leading-[0.95] tw:font-semibold tw:tracking-[-0.045em] tw:text-white tw:sm:text-6xl tw:lg:text-[4.75rem]">{{ g.site_title }}</h1>
+          {% if g.site_description %}
+            <p class="tw:mt-3 tw:mb-0 tw:font-display tw:text-3xl tw:leading-[1.05] tw:font-semibold tw:tracking-[-0.035em] tw:text-gold tw:sm:text-4xl tw:lg:text-5xl">{{ g.site_description }}</p>
+          {% endif %}
+          <p class="tw:mt-6 tw:mb-0 tw:max-w-xl tw:text-base tw:leading-7 tw:text-white/85 tw:sm:text-lg tw:sm:leading-8">{{ _('Find, preview and download open datasets on farming in Madagascar.') }}</p>
 
-            {% if tags %}
-              <div class="tw:mt-6 tw:flex tw:flex-wrap tw:items-center tw:gap-2">
-                <span class="tw:mr-1 tw:text-sm tw:font-semibold tw:text-white/70">{{ _('Popular tags') }}</span>
-                {% for tag in tags %}
-                  <a href="{% url_for dataset_type ~ '.search', tags=tag.name %}"
-                     class="tw:rounded-full tw:bg-white/10 tw:px-3 tw:py-1 tw:text-sm tw:font-medium tw:text-white tw:no-underline tw:ring-1 tw:ring-white/15 tw:transition-colors tw:hover:bg-lime-300 tw:hover:text-teal-950">{{ tag.display_name|truncate(22) }}</a>
-                {% endfor %}
-              </div>
-            {% endif %}
-          </div>
+          <form class="tw:mt-9 tw:max-w-2xl" method="get" action="{% url_for dataset_type ~ '.search' %}" role="search">
+            <label class="visually-hidden" for="field-main-search">{{ h.humanize_entity_type('package', dataset_type, 'search placeholder') or _('Search datasets') }}</label>
+            <div class="tw:flex tw:items-center tw:gap-2 tw:rounded-full tw:bg-white tw:p-1.5 tw:pl-5 tw:shadow-[0_24px_60px_-24px_rgb(0_0_0/0.65)]">
+              <i class="fa fa-search tw:text-muted" aria-hidden="true"></i>
+              <input id="field-main-search" type="search" name="q" autocomplete="off"
+                     placeholder="{{ _('E.g. environment') }}"
+                     class="tw:min-w-0 tw:flex-1 tw:border-0 tw:bg-transparent tw:px-2 tw:py-2.5 tw:text-base tw:text-ink tw:outline-none tw:sm:text-lg" />
+              <button type="submit" class="btn nice-btn-gold">{{ _('Search') }}</button>
+            </div>
+          </form>
 
-          <div aria-hidden="true" class="tw:hidden tw:lg:flex tw:size-64 tw:items-center tw:justify-center tw:rounded-full tw:bg-sand-50 tw:shadow-2xl tw:shadow-black/30 tw:ring-8 tw:ring-white/10">
-            <img class="tw:h-44 tw:w-auto" src="{{ h.url_for_static('/nice-ui/logo-color.png') }}" alt="" />
-          </div>
+          {% if tags %}
+            <div class="tw:mt-5 tw:flex tw:flex-wrap tw:items-center tw:gap-2">
+              <span class="tw:mr-1 tw:text-sm tw:font-semibold tw:text-white/70">{{ _('Popular tags') }}</span>
+              {% for tag in tags %}
+                <a href="{% url_for dataset_type ~ '.search', tags=tag.name %}"
+                   class="tw:rounded-full tw:border tw:border-white/25 tw:bg-white/10 tw:px-3 tw:py-1 tw:text-sm tw:font-medium tw:text-white tw:no-underline tw:backdrop-blur-sm tw:transition-colors tw:hover:border-white/60 tw:hover:bg-white/20 tw:hover:text-white">{{ tag.display_name|truncate(22) }}</a>
+              {% endfor %}
+            </div>
+          {% endif %}
         </div>
-      </div>
-    </section>
 
-    <section class="tw:border-b tw:border-sand-200 tw:bg-white">
-      <div class="container">
-        <ul class="list-unstyled tw:m-0 tw:grid tw:grid-cols-3 tw:divide-x tw:divide-sand-200">
+        <ul class="list-unstyled tw:mt-14 tw:mb-0 tw:grid tw:max-w-[44rem] tw:grid-cols-3 tw:border-y tw:border-white/20 tw:py-5 tw:sm:mt-16 tw:sm:py-6">
           {% for count, label, route in [
                (stats.dataset_count, datasets_label, dataset_type ~ '.search'),
                (stats.organization_count, _('Organizations'), 'organization.index'),
                (stats.group_count, _('Groups'), 'group.index')] %}
-            <li>
-              <a href="{{ h.url_for(route) }}" class="tw:flex tw:flex-col tw:items-center tw:gap-1 tw:py-6 tw:no-underline tw:transition-colors tw:hover:bg-sand-50">
-                <span class="tw:text-3xl tw:font-extrabold tw:text-teal-900">{{ h.localised_number(count) }}</span>
-                <span class="tw:text-xs tw:font-bold tw:tracking-wider tw:text-muted tw:uppercase">{{ label }}</span>
+            <li class="{{ 'tw:pr-3' if loop.first else 'tw:border-l tw:border-white/20 tw:px-3 tw:sm:px-6' }}">
+              <a href="{{ h.url_for(route) }}" class="tw:block tw:text-white tw:no-underline tw:hover:text-gold">
+                <span class="tw:block tw:font-display tw:text-2xl tw:font-semibold tw:sm:text-3xl">{{ h.localised_number(count) }}</span>
+                <span class="tw:mt-1 tw:block tw:text-[0.62rem] tw:font-bold tw:leading-snug tw:tracking-[0.12em] tw:text-white/65 tw:uppercase tw:sm:text-[0.68rem]">{{ label }}</span>
               </a>
             </li>
           {% endfor %}
@@ -71,11 +73,105 @@
       </div>
     </section>
 
+    {# Madagascar map ------------------------------------------------- #}
+    <section class="tw:relative tw:isolate tw:overflow-hidden tw:bg-sand-50 tw:py-16 tw:md:py-24">
+      <div aria-hidden="true" class="tw:absolute tw:-right-40 tw:top-10 tw:-z-10 tw:size-[40rem] tw:rounded-full tw:bg-lime-100 tw:blur-3xl"></div>
+      <div class="container">
+        <div class="tw:grid tw:grid-cols-[minmax(0,1fr)] tw:items-center tw:gap-12 tw:lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)]">
+          <div>
+            <p class="nice-eyebrow tw:mb-4 tw:text-olive-700">{{ _('Madagascar') }}</p>
+            <h2 class="tw:m-0 tw:font-display tw:text-4xl tw:leading-[1.05] tw:font-semibold tw:tracking-[-0.035em] tw:text-teal-900 tw:md:text-5xl">{{ _('Explore data by region') }}</h2>
+            <p class="tw:mt-5 tw:text-lg tw:leading-8 tw:text-muted">{{ _('Datasets tagged with the name of a region appear on the map. Select a region to see its datasets.') }}</p>
+
+            {% if madagascar.top %}
+              <ul class="list-unstyled tw:mt-8 tw:mb-0 tw:grid tw:grid-cols-2 tw:gap-3">
+                {% for region in madagascar.top %}
+                  <li>
+                    <a href="{% url_for dataset_type ~ '.search', tags=region.tag %}"
+                       class="tw:flex tw:items-center tw:justify-between tw:gap-3 tw:rounded-xl tw:border tw:border-sand-200 tw:bg-white tw:px-4 tw:py-3 tw:font-semibold tw:text-teal-900 tw:no-underline tw:shadow-xs tw:transition tw:hover:border-lime-500 tw:hover:shadow-md">
+                      <span class="tw:truncate">{{ region.name }}</span>
+                      <span class="tw:rounded-full tw:bg-lime-100 tw:px-2.5 tw:py-0.5 tw:text-sm tw:text-teal-900">{{ h.localised_number(region.count) }}</span>
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+
+            <p class="tw:mt-8 tw:mb-0 tw:text-xs tw:text-muted">{{ madagascar.attribution }}</p>
+          </div>
+
+          <figure class="tw:m-0 tw:flex tw:flex-col tw:items-center">
+            <svg class="nice-map tw:h-[28rem] tw:w-auto tw:max-w-full tw:md:h-[40rem]" viewBox="{{ madagascar.view_box }}"
+                 role="group" aria-label="{{ _('Explore data by region') }}">
+              {% for region in madagascar.regions %}
+                {% set region_url = h.url_for(dataset_type ~ '.search', tags=region.tag) if region.tag else h.url_for(dataset_type ~ '.search', q=region.name) %}
+                <a class="nice-map-region" href="{{ region_url }}" data-level="{{ region.level }}">
+                  <title>{{ region.name }} — {{ ungettext('{num} Dataset', '{num} Datasets', region.count).format(num=h.localised_number(region.count)) }}</title>
+                  <path d="{{ region.d }}" />
+                </a>
+              {% endfor %}
+            </svg>
+            {% if madagascar.most %}
+              <figcaption aria-hidden="true" class="tw:mt-4 tw:flex tw:items-center tw:gap-3 tw:text-xs tw:font-semibold tw:text-muted">
+                <span>0</span>
+                <span class="nice-map-legend tw:h-2.5 tw:w-40 tw:rounded-full"></span>
+                <span>{{ h.localised_number(madagascar.most) }}</span>
+              </figcaption>
+            {% endif %}
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    {# From the field ------------------------------------------------- #}
+    <section class="nice-paper tw:relative tw:isolate tw:overflow-hidden tw:py-20 tw:md:py-28">
+      <div aria-hidden="true" class="nice-paper-grid tw:absolute tw:inset-0 tw:-z-10 tw:opacity-50"></div>
+      <div class="container">
+        <div class="tw:grid tw:grid-cols-[minmax(0,1fr)] tw:items-center tw:gap-12 tw:lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] tw:lg:gap-20">
+          <div>
+            <p class="nice-eyebrow tw:mb-4 tw:text-olive-700">{{ _('From the field') }}</p>
+            <h2 class="tw:m-0 tw:font-display tw:text-4xl tw:leading-[1.05] tw:font-semibold tw:tracking-[-0.035em] tw:text-teal-900 tw:md:text-5xl">
+              {{ _('Data rooted in real farms.') }}
+              <span class="tw:mt-1 tw:block tw:text-olive-600">{{ _('Open to everyone.') }}</span>
+            </h2>
+            <p class="tw:mt-6 tw:max-w-xl tw:text-lg tw:leading-8 tw:text-muted">{{ _('Harvests, rainfall, soil and market prices, collected on agroecological farms and shared openly.') }}</p>
+            <a class="btn btn-primary tw:mt-8 tw:inline-flex tw:items-center tw:gap-2 tw:rounded-full tw:px-6 tw:py-3" href="{% url_for dataset_type ~ '.search' %}">
+              {{ _('Search datasets') }} <i class="fa fa-arrow-right" aria-hidden="true"></i>
+            </a>
+          </div>
+
+          <figure class="nice-mosaic tw:relative tw:m-0 tw:h-[30rem] tw:overflow-hidden tw:rounded-[2rem] tw:sm:h-[38rem]">
+            <div class="tw:absolute tw:inset-0 tw:grid tw:grid-cols-[1.16fr_0.84fr] tw:grid-rows-3 tw:gap-2 tw:bg-paper tw:p-2">
+              <img class="tw:row-span-3 tw:size-full tw:rounded-[1.45rem_0.55rem_0.55rem_1.45rem] tw:object-cover" loading="lazy" alt=""
+                   src="{{ h.url_for_static('/nice-ui/photos/squash.webp') }}" />
+              <img class="tw:size-full tw:rounded-[0.55rem_1.45rem_0.55rem_0.55rem] tw:object-cover" loading="lazy" alt=""
+                   src="{{ h.url_for_static('/nice-ui/photos/radish.webp') }}" />
+              <img class="tw:size-full tw:rounded-[0.55rem] tw:object-cover" loading="lazy" alt=""
+                   src="{{ h.url_for_static('/nice-ui/photos/peppers.webp') }}" />
+              <img class="tw:size-full tw:rounded-[0.55rem_0.55rem_1.45rem_0.55rem] tw:object-cover" loading="lazy" alt=""
+                   src="{{ h.url_for_static('/nice-ui/photos/pumpkin.webp') }}" />
+            </div>
+            <figcaption class="tw:absolute tw:inset-x-2 tw:bottom-2 tw:rounded-b-[1.45rem] tw:bg-gradient-to-t tw:from-teal-950/90 tw:via-teal-950/35 tw:to-transparent tw:p-6 tw:pt-28 tw:sm:p-8 tw:sm:pt-36">
+              <div class="tw:flex tw:flex-wrap tw:items-end tw:justify-between tw:gap-5">
+                <div>
+                  <p class="nice-eyebrow tw:mb-2 tw:text-gold">{{ _('Agroecology') }}</p>
+                  <p class="tw:m-0 tw:max-w-md tw:font-display tw:text-2xl tw:leading-tight tw:text-white tw:sm:text-3xl">{{ _('Nothing is lost. Every resource feeds the next.') }}</p>
+                </div>
+                <a href="{% url_for dataset_type ~ '.search' %}"
+                   class="tw:rounded-full tw:border tw:border-white/25 tw:bg-white/10 tw:px-4 tw:py-2 tw:text-xs tw:font-semibold tw:text-white tw:no-underline tw:backdrop-blur tw:hover:bg-white/20 tw:hover:text-white">{{ ungettext('{num} Dataset', '{num} Datasets', stats.dataset_count).format(num=h.localised_number(stats.dataset_count)) }}</a>
+              </div>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    {# New datasets --------------------------------------------------- #}
     {% if new_datasets %}
-      <section class="tw:py-12">
+      <section class="tw:py-16 tw:md:py-20">
         <div class="container">
-          <div class="tw:mb-6 tw:flex tw:items-end tw:justify-between tw:gap-4">
-            <h2 class="tw:m-0 tw:text-2xl tw:font-bold tw:text-teal-900">{{ _('New datasets') }}</h2>
+          <div class="tw:mb-8 tw:flex tw:items-end tw:justify-between tw:gap-4">
+            <h2 class="tw:m-0 tw:font-display tw:text-3xl tw:font-semibold tw:tracking-[-0.03em] tw:text-teal-900 tw:md:text-4xl">{{ _('New datasets') }}</h2>
             <a class="tw:font-semibold" href="{% url_for dataset_type ~ '.search' %}">{{ datasets_label }} &rarr;</a>
           </div>
           <ul class="list-unstyled tw:m-0 tw:grid tw:gap-5 tw:md:grid-cols-3">
@@ -88,7 +184,7 @@
     {% endif %}
 
     {% if h.get_featured_groups() or h.get_featured_organizations() %}
-      <section class="tw:pb-12">
+      <section class="tw:pb-16">
         <div class="container">
           <div class="row">
             <div class="col-md-6">

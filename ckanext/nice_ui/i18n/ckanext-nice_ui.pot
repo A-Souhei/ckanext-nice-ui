@@ -1,0 +1,86 @@
+#: ckanext/nice_ui/templates/home/index.html:10
+msgid "Datasets"
+msgstr ""
+
+#: ckanext/nice_ui/templates/home/index.html:30
+#: ckanext/nice_ui/templates/home/index.html:82
+msgid "Madagascar"
+msgstr ""
+
+#: ckanext/nice_ui/templates/home/index.html:36
+msgid "Find, preview and download open datasets on farming in Madagascar."
+msgstr ""
+
+#: ckanext/nice_ui/templates/home/index.html:39
+#: ckanext/nice_ui/templates/home/index.html:139
+msgid "Search datasets"
+msgstr ""
+
+#: ckanext/nice_ui/templates/home/index.html:43
+msgid "E.g. environment"
+msgstr ""
+
+#: ckanext/nice_ui/templates/home/index.html:45
+msgid "Search"
+msgstr ""
+
+#: ckanext/nice_ui/templates/home/index.html:51
+msgid "Popular tags"
+msgstr ""
+
+#: ckanext/nice_ui/templates/home/index.html:63
+msgid "Organizations"
+msgstr ""
+
+#: ckanext/nice_ui/templates/home/index.html:64
+msgid "Groups"
+msgstr ""
+
+#: ckanext/nice_ui/templates/home/index.html:83
+#: ckanext/nice_ui/templates/home/index.html:105
+msgid "Explore data by region"
+msgstr ""
+
+#: ckanext/nice_ui/templates/home/index.html:84
+msgid ""
+"Datasets tagged with the name of a region appear on the map. Select a "
+"region to see its datasets."
+msgstr ""
+
+#: ckanext/nice_ui/templates/home/index.html:109
+#: ckanext/nice_ui/templates/home/index.html:161
+msgid "{num} Dataset"
+msgid_plural "{num} Datasets"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ckanext/nice_ui/templates/home/index.html:132
+msgid "From the field"
+msgstr ""
+
+#: ckanext/nice_ui/templates/home/index.html:134
+msgid "Data rooted in real farms."
+msgstr ""
+
+#: ckanext/nice_ui/templates/home/index.html:135
+msgid "Open to everyone."
+msgstr ""
+
+#: ckanext/nice_ui/templates/home/index.html:137
+msgid ""
+"Harvests, rainfall, soil and market prices, collected on agroecological "
+"farms and shared openly."
+msgstr ""
+
+#: ckanext/nice_ui/templates/home/index.html:157
+msgid "Agroecology"
+msgstr ""
+
+#: ckanext/nice_ui/templates/home/index.html:158
+msgid "Nothing is lost. Every resource feeds the next."
+msgstr ""
+
+#: ckanext/nice_ui/templates/home/index.html:174
+msgid "New datasets"
+msgstr ""
+

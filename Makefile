@@ -1,4 +1,4 @@
-.PHONY: css clean-tailwind
+.PHONY: css clean-tailwind i18n-extract i18n-compile
 
 # Tailwind's standalone CLI: one binary, no npm. Pinned and checksum-verified,
 # then run in a throwaway container with no network and only this repository
@@ -33,3 +33,26 @@ $(TAILWIND):
 
 clean-tailwind:
 	rm -rf .tailwind
+
+# Translations. Run in CKAN's own image: its template extractor has to match the
+# CKAN that renders them, and nothing gets installed here. French lives in this
+# extension; Malagasy in ckanext-tomalagasy, which picks up the .pot below.
+CKAN_IMAGE := ckan/ckan-base:2.11.6
+I18N       := ckanext/nice_ui/i18n
+DOMAIN     := ckanext-nice_ui
+LOCALES    := fr
+BABEL      := docker run --rm --network none --user "$$(id -u):$$(id -g)" \
+	-v "$(CURDIR):/src" -w /src --entrypoint pybabel $(CKAN_IMAGE)
+
+i18n-extract:
+	$(BABEL) extract -F babel.cfg --omit-header -o $(I18N)/$(DOMAIN).pot .
+	@for lang in $(LOCALES); do \
+		if [ -f $(I18N)/$$lang/LC_MESSAGES/$(DOMAIN).po ]; then \
+			$(BABEL) update -D $(DOMAIN) -i $(I18N)/$(DOMAIN).pot -d $(I18N) -l $$lang --no-fuzzy-matching; \
+		else \
+			$(BABEL) init -D $(DOMAIN) -i $(I18N)/$(DOMAIN).pot -d $(I18N) -l $$lang; \
+		fi; \
+	done
+
+i18n-compile:
+	$(BABEL) compile -D $(DOMAIN) -d $(I18N) --statistics
