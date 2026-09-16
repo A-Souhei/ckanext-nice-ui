@@ -1,5 +1,10 @@
 {% ckan_extends %}
 
+{# One element around both bars, so the home page can lay them over its photo. #}
+{% block header_wrapper %}
+  <div class="nice-header">{{ super() }}</div>
+{% endblock %}
+
 {# The logo alone told visitors nothing; pair it with the site title. The image
    is decorative (alt="") because the title right next to it names the link. #}
 {% block header_logo %}

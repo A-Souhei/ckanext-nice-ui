@@ -1,0 +1,110 @@
+# French translations for ckanext-nice-ui.
+# This file is distributed under the same license as the ckanext-nice-ui
+# project.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ckanext-nice-ui 0.1.0\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2026-09-16 15:50+0000\n"
+"PO-Revision-Date: 2026-09-16 14:40+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: fr\n"
+"Language-Team: French\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ckanext/nice_ui/templates/home/index.html:10
+msgid "Datasets"
+msgstr ""
+
+#: ckanext/nice_ui/templates/home/index.html:30
+#: ckanext/nice_ui/templates/home/index.html:82
+msgid "Madagascar"
+msgstr "Madagascar"
+
+#: ckanext/nice_ui/templates/home/index.html:36
+msgid "Find, preview and download open datasets on farming in Madagascar."
+msgstr "Trouvez, prévisualisez et téléchargez des données ouvertes sur l'agriculture à Madagascar."
+
+#: ckanext/nice_ui/templates/home/index.html:39
+#: ckanext/nice_ui/templates/home/index.html:139
+msgid "Search datasets"
+msgstr ""
+
+#: ckanext/nice_ui/templates/home/index.html:43
+msgid "E.g. environment"
+msgstr ""
+
+#: ckanext/nice_ui/templates/home/index.html:45
+msgid "Search"
+msgstr ""
+
+#: ckanext/nice_ui/templates/home/index.html:51
+msgid "Popular tags"
+msgstr ""
+
+#: ckanext/nice_ui/templates/home/index.html:63
+msgid "Organizations"
+msgstr ""
+
+#: ckanext/nice_ui/templates/home/index.html:64
+msgid "Groups"
+msgstr ""
+
+#: ckanext/nice_ui/templates/home/index.html:83
+#: ckanext/nice_ui/templates/home/index.html:105
+msgid "Explore data by region"
+msgstr "Explorer les données par région"
+
+#: ckanext/nice_ui/templates/home/index.html:84
+msgid ""
+"Datasets tagged with the name of a region appear on the map. Select a "
+"region to see its datasets."
+msgstr ""
+"Les jeux de données dont un mot-clé porte le nom d'une région "
+"apparaissent sur la carte. Sélectionnez une région pour voir ses jeux de "
+"données."
+
+#: ckanext/nice_ui/templates/home/index.html:109
+#: ckanext/nice_ui/templates/home/index.html:161
+msgid "{num} Dataset"
+msgid_plural "{num} Datasets"
+msgstr[0] "{num} jeu de données"
+msgstr[1] "{num} jeux de données"
+
+#: ckanext/nice_ui/templates/home/index.html:132
+msgid "From the field"
+msgstr "Du terrain"
+
+#: ckanext/nice_ui/templates/home/index.html:134
+msgid "Data rooted in real farms."
+msgstr "Des données ancrées dans de vraies fermes."
+
+#: ckanext/nice_ui/templates/home/index.html:135
+msgid "Open to everyone."
+msgstr "Ouvertes à tous."
+
+#: ckanext/nice_ui/templates/home/index.html:137
+msgid ""
+"Harvests, rainfall, soil and market prices, collected on agroecological "
+"farms and shared openly."
+msgstr ""
+"Récoltes, pluviométrie, sols et prix du marché, collectés dans des fermes"
+" agroécologiques et partagés librement."
+
+#: ckanext/nice_ui/templates/home/index.html:157
+msgid "Agroecology"
+msgstr "Agroécologie"
+
+#: ckanext/nice_ui/templates/home/index.html:158
+msgid "Nothing is lost. Every resource feeds the next."
+msgstr "Rien ne se perd. Chaque ressource nourrit la suivante."
+
+#: ckanext/nice_ui/templates/home/index.html:174
+msgid "New datasets"
+msgstr "Nouveaux jeux de données"
+

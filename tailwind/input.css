@@ -42,7 +42,32 @@
   --brand-sand-100: #eef2e8;
   --brand-sand-200: #dfe6d6;
   --brand-muted: #4b5a4f;
+  /* From sahan-aina.com: gold only on dark photos or as a button behind dark text. */
+  --brand-gold: #feda6f;
+  --brand-gold-soft: #ffe596;
+  --brand-paper: #faf6e7;
   --brand-font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --brand-font-display: "Fraunces", Georgia, "Times New Roman", serif;
+}
+
+/* Fraunces (SIL OFL, see public/nice-ui/fonts/OFL.txt), the sahan-aina.com
+   headline face. Absolute URLs: the compiled CSS is served from /webassets/. */
+@font-face {
+  font-family: "Fraunces";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/nice-ui/fonts/fraunces-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Fraunces";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/nice-ui/fonts/fraunces-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
 @theme inline {
@@ -61,15 +86,27 @@
   --color-sand-100: var(--brand-sand-100);
   --color-sand-200: var(--brand-sand-200);
   --color-muted: var(--brand-muted);
+  --color-gold: var(--brand-gold);
+  --color-paper: var(--brand-paper);
   --font-sans: var(--brand-font-sans);
+  --font-display: var(--brand-font-display);
 }
 
 /* Page ------------------------------------------------------------------- */
 
+/* Short pages (About…) keep the footer at the bottom of the window. */
 body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   font-family: var(--brand-font-sans);
   color: var(--brand-ink);
   background-color: var(--brand-sand-50);
+}
+
+body > .main,
+body > .homepage {
+  flex: 1 0 auto;
 }
 
 .main,
@@ -162,6 +199,42 @@ a:focus {
   color: rgb(255 255 255 / 0.8);
 }
 
+/* Home page: both bars float, transparent, over the hero photo. */
+.nice-home .nice-header {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 30;
+}
+
+.nice-home .account-masthead {
+  background: transparent;
+  border-bottom: 1px solid rgb(255 255 255 / 0.1);
+}
+
+.nice-home .masthead {
+  background: transparent;
+}
+
+@media (max-width: 991.98px) {
+  .nice-home .masthead .navbar-collapse {
+    margin-top: 0.5rem;
+    padding: 0.75rem;
+    background-color: rgb(0 31 25 / 0.94);
+    border-radius: 1rem;
+  }
+}
+
+/* Flash messages would otherwise hide under the floating header. */
+.nice-home .homepage > #content {
+  position: absolute;
+  top: 8rem;
+  right: 0;
+  left: 0;
+  z-index: 25;
+}
+
 /* Content panels --------------------------------------------------------- */
 
 .wrapper,
@@ -183,7 +256,7 @@ a:focus {
 /* Small caps only for sidebar section titles (facets, "Followers"…), not for
    the group and organization names CKAN also renders as module headings. */
 .secondary .module-heading,
-.module-narrow .module-heading {
+.module-narrow:not(.group-list) .module-heading {
   color: var(--brand-muted);
   font-size: 0.75rem;
   font-weight: 700;
@@ -195,44 +268,291 @@ a:focus {
   border-radius: 1rem 0 0 0;
 }
 
-.nav-simple > li,
-.nav-aside > li {
-  border-bottom: 1px solid var(--brand-sand-100);
+/* Sidebar ------------------------------------------------------------------
+   From md up, a page with a sidebar gets two cards instead of one split panel:
+   the sidebar floats on its own, as tall as its content. */
+
+@media (min-width: 768px) {
+  .wrapper:not(.no-nav) {
+    align-items: flex-start;
+    margin-right: 0;
+    margin-left: 0;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .wrapper:not(.no-nav)::before {
+    display: none;
+  }
+
+  .wrapper:not(.no-nav) > .secondary,
+  .wrapper:not(.no-nav) > .primary {
+    background-color: #fff;
+    border: 1px solid var(--brand-sand-200);
+    border-radius: 1.25rem;
+    box-shadow: 0 1px 2px rgb(10 30 0 / 0.04), 0 18px 40px -28px rgb(10 30 0 / 0.3);
+  }
+
+  .wrapper:not(.no-nav) > .secondary {
+    width: calc(25% - 1.5rem);
+    margin-right: 1.5rem;
+    padding: 0.75rem;
+  }
+
+  .wrapper:not(.no-nav) > .primary {
+    padding: 0;
+  }
+}
+
+.secondary .module {
+  margin: 0;
+}
+
+.secondary > .module + .module,
+.secondary > .module + .filters,
+.secondary .filters .module + .module {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--brand-sand-100);
+}
+
+.secondary .module-heading {
+  padding: 0.375rem 0.75rem;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+}
+
+/* Every facet repeats the same filter icon; the label says enough. */
+.secondary .module-heading > .fa {
+  display: none;
+}
+
+.secondary .module-content,
+.secondary .module-shallow .module-content {
+  padding: 0.25rem 0.75rem 0.5rem;
+}
+
+.secondary .module-footer {
+  padding: 0.25rem 0.75rem;
+  border-top: 0;
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.module-narrow .nav-simple > li,
+.module-narrow .nav-aside > li {
+  padding: 0;
+  border-bottom: 0;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.module-narrow .nav-simple > li + li,
+.module-narrow .nav-aside > li + li {
+  margin-top: 2px;
 }
 
 .module-narrow .nav-item > a,
 .module-narrow .nav-aside li a {
-  color: var(--brand-ink);
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  margin: 0;
+  padding: 0.5rem 0.75rem;
+  color: var(--brand-muted);
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.35;
+  border-radius: 0.625rem;
+  transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
+}
+
+.module-narrow .nav-item > a > i,
+.module-narrow .nav-aside li a > i {
+  flex-shrink: 0;
+  width: 1rem;
+  color: #8a978d;
+  text-align: center;
 }
 
 .module-narrow .nav-item > a:hover,
 .module-narrow .nav-aside li a:hover {
-  background-color: var(--brand-lime-100);
+  color: var(--brand-teal-900);
+  background-color: var(--brand-sand-100);
 }
 
-.module-narrow .nav-item > a .badge,
-.module-narrow .nav-aside li a .badge {
-  color: var(--brand-teal-900);
-  background-color: var(--brand-sand-200);
+.module-narrow .nav-item.active,
+.module-narrow .nav-aside li.active {
+  background-color: transparent;
 }
 
 .module-narrow .nav-item.active > a,
 .module-narrow .nav-aside li.active a,
 .module-narrow .nav-item.active > a:hover,
 .module-narrow .nav-aside li.active a:hover {
-  color: #fff;
-  background-color: var(--brand-olive-700);
+  color: var(--brand-olive-800);
+  background-color: var(--brand-lime-100);
+  font-weight: 600;
 }
 
+.module-narrow .nav-item.active > a > i,
+.module-narrow .nav-aside li.active a > i {
+  color: var(--brand-olive-700);
+}
+
+/* CKAN's arrow tab and its no-wrap labels, which overflow the narrow column. */
 .module-narrow .nav-item.active > a:before,
 .module-narrow .nav-aside li.active a:before {
-  border-left-color: var(--brand-olive-700);
+  display: none;
+}
+
+.module-narrow .nav-item.active > a span,
+.module-narrow .nav-aside li.active a span {
+  white-space: normal;
+}
+
+.nav-facet .separator {
+  display: none;
+}
+
+.nav-facet .item-label {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.nav-facet .nav-item.active .item-label {
+  white-space: nowrap;
+}
+
+.module-narrow .nav-item > a .badge,
+.module-narrow .nav-aside li a .badge {
+  margin-left: auto;
+  padding: 0.2em 0.6em;
+  color: var(--brand-muted);
+  background-color: var(--brand-sand-100);
+  font-size: 0.75rem;
 }
 
 .module-narrow .nav-item.active > a .badge,
 .module-narrow .nav-aside li.active a .badge {
   color: #fff;
-  background-color: rgb(255 255 255 / 0.2);
+  background-color: var(--brand-olive-700);
+}
+
+/* Organization, dataset and user summaries at the top of the sidebar. */
+.secondary .context-info .module-content {
+  padding: 0.75rem;
+}
+
+.context-info .image {
+  margin-bottom: 0.875rem;
+}
+
+.context-info .image a {
+  display: inline-block;
+  width: auto;
+  height: auto;
+}
+
+.context-info .image img {
+  width: auto;
+  max-width: 100%;
+  height: 4.5rem;
+  padding: 0.375rem;
+  object-fit: contain;
+  background-color: var(--brand-sand-50);
+  border: 1px solid var(--brand-sand-200);
+  border-radius: 1rem;
+}
+
+.context-info .image .user-image {
+  padding: 0;
+  border-radius: 9999px;
+}
+
+.context-info h1.heading,
+.context-info .heading.h1 {
+  margin-bottom: 0.375rem;
+  color: var(--brand-teal-900);
+  font-size: 1.125rem;
+  font-weight: 700;
+  word-break: normal;
+  overflow-wrap: anywhere;
+}
+
+.context-info .description,
+.context-info .empty {
+  margin-bottom: 0.5rem;
+  color: var(--brand-muted);
+  font-size: 0.875rem;
+  line-height: 1.55;
+  word-break: normal;
+  overflow-wrap: anywhere;
+}
+
+.context-info .read-more {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+/* Label and count on one row: side by side tiles truncate the labels. */
+.context-info .nums {
+  display: block;
+  margin-top: 0.875rem;
+  padding-top: 0;
+  background-color: var(--brand-sand-50);
+  border: 1px solid var(--brand-sand-100);
+  border-radius: 0.75rem;
+}
+
+.context-info .nums dl {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0.5rem 0.75rem;
+  color: var(--brand-muted);
+}
+
+.context-info .nums dl + dl {
+  border-top: 1px solid var(--brand-sand-100);
+}
+
+.context-info .nums dl dt {
+  font-size: 0.8125rem;
+  font-weight: 500;
+}
+
+.context-info .nums dl dd {
+  margin: 0;
+  color: var(--brand-teal-900);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.context-info .info {
+  margin-top: 0.875rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--brand-sand-100);
+  font-size: 0.875rem;
+}
+
+.context-info .info dl dt {
+  color: var(--brand-muted);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .toolbar .breadcrumb {
@@ -397,6 +717,16 @@ a.tag:hover {
 .badge[data-format*=api] { background-color: #9d174d; }
 .badge[data-format*=zip] { background-color: #4b5563; }
 
+/* Geo formats: ckanext-geoview's stylesheet loads after this one and paints them
+   purple, so the attribute is doubled to outrank it on specificity. */
+.badge[data-format][data-format*=geojson],
+.badge[data-format][data-format*=kml],
+.badge[data-format][data-format*=gml],
+.badge[data-format][data-format*=shp],
+.badge[data-format][data-format*=wms],
+.badge[data-format][data-format*=wfs],
+.badge[data-format][data-format*=wmts] { background-color: var(--brand-teal-700); }
+
 /* Plain CSS rather than tw: utilities so the card can be flattened where CKAN
    nests dataset items inside another panel (featured groups/organizations). */
 .dataset-item,
@@ -457,6 +787,120 @@ a.tag:hover {
 
 .resource-item .heading {
   color: var(--brand-teal-900);
+}
+
+/* Home page --------------------------------------------------------------- */
+
+/* Dark on the text side, clear on the photo side, as on sahan-aina.com; phones
+   put text across the whole photo, so they get an even shade. */
+.nice-hero-shade {
+  background:
+    linear-gradient(180deg, rgb(0 31 25 / 0.55) 0%, rgb(0 31 25 / 0) 28%, rgb(0 31 25 / 0) 70%, rgb(0 31 25 / 0.3) 100%),
+    linear-gradient(90deg, rgb(0 31 25 / 0.7) 0%, rgb(0 31 25 / 0.58) 32%, rgb(10 74 61 / 0.34) 55%, rgb(10 74 61 / 0.08) 78%, rgb(10 74 61 / 0) 100%);
+}
+
+@media (max-width: 767.98px) {
+  .nice-hero-shade {
+    background: linear-gradient(180deg, rgb(0 31 25 / 0.6) 0%, rgb(0 31 25 / 0.5) 45%, rgb(0 31 25 / 0.72) 100%);
+  }
+}
+
+.nice-grain {
+  background-image: radial-gradient(rgb(255 255 255 / 0.13) 0.6px, transparent 0.6px);
+  background-size: 5px 5px;
+}
+
+.nice-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.nice-eyebrow::before {
+  content: "";
+  width: 1.75rem;
+  height: 1px;
+  background-color: currentColor;
+  opacity: 0.6;
+}
+
+.btn.nice-btn-gold {
+  flex-shrink: 0;
+  padding: 0.75rem 1.5rem;
+  color: var(--brand-teal-950);
+  background-color: var(--brand-gold);
+  border: 0;
+  border-radius: 9999px;
+  font-weight: 700;
+  box-shadow: 0 10px 30px -14px rgb(254 218 111 / 0.8);
+  transition: transform 0.15s ease-in-out, background-color 0.15s ease-in-out;
+}
+
+.btn.nice-btn-gold:hover,
+.btn.nice-btn-gold:focus {
+  color: var(--brand-teal-950);
+  background-color: var(--brand-gold-soft);
+  transform: translateY(-1px);
+}
+
+.nice-paper {
+  background:
+    radial-gradient(circle at 10% 12%, rgb(254 218 111 / 0.22), transparent 30%),
+    radial-gradient(circle at 92% 82%, rgb(146 161 104 / 0.22), transparent 34%),
+    linear-gradient(145deg, #fffdf5 0%, var(--brand-paper) 56%, #ecf0c7 100%);
+}
+
+.nice-paper-grid {
+  background-image:
+    linear-gradient(rgb(10 74 61 / 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(10 74 61 / 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.nice-mosaic {
+  box-shadow: 0 35px 80px -38px rgb(10 30 0 / 0.4);
+}
+
+/* Madagascar map ---------------------------------------------------------- */
+
+.nice-map-region path {
+  fill: var(--brand-sand-200);
+  stroke: #fff;
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+  transition: fill 0.15s ease-in-out;
+}
+
+.nice-map-region[data-level="1"] path { fill: var(--brand-lime-100); }
+.nice-map-region[data-level="2"] path { fill: var(--brand-lime-300); }
+.nice-map-region[data-level="3"] path { fill: var(--brand-lime-500); }
+.nice-map-region[data-level="4"] path { fill: var(--brand-olive-700); }
+
+.nice-map-region:hover path,
+.nice-map-region:focus path {
+  fill: var(--brand-teal-700);
+}
+
+/* Focus rings do not follow SVG shapes; thicken the outline instead. */
+.nice-map-region:focus {
+  outline: none;
+}
+
+.nice-map-region:focus-visible path {
+  stroke: var(--brand-teal-950);
+  stroke-width: 3;
+}
+
+.nice-map {
+  filter: drop-shadow(0 18px 30px rgb(10 30 0 / 0.18));
+}
+
+.nice-map-legend {
+  background: linear-gradient(90deg, var(--brand-sand-200), var(--brand-lime-100), var(--brand-lime-300), var(--brand-lime-500), var(--brand-olive-700));
 }
 
 /* Footer ----------------------------------------------------------------- */
