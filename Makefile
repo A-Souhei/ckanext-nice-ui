@@ -48,7 +48,7 @@ i18n-extract:
 	$(BABEL) extract -F babel.cfg --omit-header -o $(I18N)/$(DOMAIN).pot .
 	@for lang in $(LOCALES); do \
 		if [ -f $(I18N)/$$lang/LC_MESSAGES/$(DOMAIN).po ]; then \
-			$(BABEL) update -D $(DOMAIN) -i $(I18N)/$(DOMAIN).pot -d $(I18N) -l $$lang --no-fuzzy-matching; \
+			$(BABEL) update -D $(DOMAIN) -i $(I18N)/$(DOMAIN).pot -d $(I18N) -l $$lang --no-fuzzy-matching --ignore-obsolete; \
 		else \
 			$(BABEL) init -D $(DOMAIN) -i $(I18N)/$(DOMAIN).pot -d $(I18N) -l $$lang; \
 		fi; \

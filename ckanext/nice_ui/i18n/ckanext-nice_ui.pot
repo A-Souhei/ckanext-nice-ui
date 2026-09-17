@@ -26,6 +26,48 @@ msgstr ""
 msgid "About"
 msgstr ""
 
+#: ckanext/nice_ui/templates/admin/config.html:7
+msgid "Config options"
+msgstr ""
+
+#: ckanext/nice_ui/templates/admin/config.html:14
+#, python-format
+msgid ""
+"<p><strong>Site Title:</strong> This is the title of this site. It "
+"appears in various places throughout the site.</p> <p><strong>Custom "
+"Stylesheet:</strong> Define an alternative main CSS file.</p> "
+"<p><strong>Site Tag Logo:</strong> This is the logo that appears in the "
+"header of every page.</p> <p><strong>About:</strong> This text will "
+"appear on this site's <a href=\"%(about_url)s\">about page</a>.</p> "
+"<p><strong>Intro Text:</strong> This text will appear on this site's <a "
+"href=\"%(home_url)s\">home page</a> as a welcome to visitors.</p> "
+"<p><strong>Custom CSS:</strong> This is a block of CSS that appears in "
+"<code>&lt;head&gt;</code> tag of every page. If you wish to customize the"
+" templates more fully we recommend <a href=\"%(docs_url)s\" "
+"target=\"_blank\" rel=\"noreferrer\">reading the documentation</a>.</p>"
+msgstr ""
+
+#: ckanext/nice_ui/templates/admin/index.html:7
+msgid "Site administration"
+msgstr ""
+
+#: ckanext/nice_ui/templates/admin/index.html:11
+#, python-format
+msgid ""
+"<p>As a sysadmin user you have full control over this site. Proceed with "
+"care!</p> <p>For guidance on using sysadmin features, see the <a "
+"href=\"%(docs_url)s\" target=\"_blank\" rel=\"noreferrer\">sysadmin "
+"guide</a>.</p>"
+msgstr ""
+
+#: ckanext/nice_ui/templates/ckanext_pages/blog_edit_base.html:7
+msgid "Blog"
+msgstr ""
+
+#: ckanext/nice_ui/templates/ckanext_pages/blog_edit_base.html:10
+msgid "<p>Add blog articles here.</p>"
+msgstr ""
+
 #: ckanext/nice_ui/templates/ckanext_pages/page.html:15
 msgid "Revisions"
 msgstr ""
@@ -44,6 +86,18 @@ msgstr ""
 
 #: ckanext/nice_ui/templates/ckanext_pages/pages_list.html:44
 msgid "There are currently no pages here"
+msgstr ""
+
+#: ckanext/nice_ui/templates/group/snippets/helper.html:5
+msgid "What are Groups?"
+msgstr ""
+
+#: ckanext/nice_ui/templates/group/snippets/helper.html:9
+msgid ""
+"You can use Groups to create and manage collections of datasets. This "
+"could be to catalogue datasets for a particular project or team, or on a "
+"particular theme, or as a very simple way to help people find and search "
+"your own published datasets."
 msgstr ""
 
 #: ckanext/nice_ui/templates/home/about.html:24
@@ -208,7 +262,7 @@ msgid "Preview tables and maps in your browser, or download the files."
 msgstr ""
 
 #: ckanext/nice_ui/templates/home/about.html:113
-msgid "Automate downloads and updates with the CKAN API."
+msgid "Automate downloads and updates with the API."
 msgstr ""
 
 #: ckanext/nice_ui/templates/home/about.html:123
@@ -304,5 +358,35 @@ msgstr ""
 
 #: ckanext/nice_ui/templates/home/index.html:174
 msgid "New datasets"
+msgstr ""
+
+#: ckanext/nice_ui/templates/organization/snippets/helper.html:5
+msgid "What are Organizations?"
+msgstr ""
+
+#: ckanext/nice_ui/templates/organization/snippets/helper.html:9
+msgid ""
+"Organizations are used to create, manage and publish collections of "
+"datasets. Users can have different roles within an Organization, "
+"depending on their level of authorisation to create, edit and publish."
+msgstr ""
+
+#: ckanext/nice_ui/templates/package/base_form_page.html:5
+msgid "What are datasets?"
+msgstr ""
+
+#: ckanext/nice_ui/templates/package/base_form_page.html:8
+msgid ""
+"A dataset is a collection of data resources (such as files), together "
+"with a description and other information, at a fixed URL. Datasets are "
+"what users see when searching for data."
+msgstr ""
+
+#: ckanext/nice_ui/templates/user/edit.html:5
+msgid "Account Info"
+msgstr ""
+
+#: ckanext/nice_ui/templates/user/edit.html:7
+msgid "Your profile lets other users know about who you are and what you do."
 msgstr ""
 

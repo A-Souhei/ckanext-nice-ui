@@ -6,7 +6,9 @@ and a matching footer. The home page has a photo hero with a large search, site
 statistics, a map of Madagascar's regions shaded by dataset count, a photo
 section from the field, and the newest datasets. The About page presents
 Sahan'Aina, users, organizations and groups without an image get initials
-avatars in brand colours, and resource formats get file icons.
+avatars in brand colours, and resource formats get file icons. Help texts
+(organizations, groups, datasets, profile, sysadmin screens) talk about "the
+site" rather than "CKAN"; the footer keeps its CKAN credits.
 
 Built with [Tailwind CSS](https://tailwindcss.com) v4 **on top of** CKAN's
 Bootstrap, not instead of it.

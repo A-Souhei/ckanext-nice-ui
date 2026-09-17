@@ -1,0 +1,32 @@
+{% ckan_extends %}
+
+{% block secondary_content %}
+  <div class="module module-narrow module-shallow">
+    <h2 class="module-heading">
+      <i class="fa fa-info-circle"></i>
+      {{ _('Config options') }}
+    </h2>
+    <div class="module-content">
+      {% block admin_form_help %}
+        {% set about_url = h.url_for('home.about') %}
+        {% set home_url = h.url_for('home.index') %}
+        {% set docs_url = "https://docs.ckan.org/en/{0}/theming".format(g.ckan_doc_version) %}
+        {% trans %}
+          <p><strong>Site Title:</strong> This is the title of this site.
+            It appears in various places throughout the site.</p>
+          <p><strong>Custom Stylesheet:</strong> Define an alternative main CSS file.</p>
+          <p><strong>Site Tag Logo:</strong> This is the logo that appears in the
+            header of every page.</p>
+          <p><strong>About:</strong> This text will appear on this site's
+            <a href="{{ about_url }}">about page</a>.</p>
+          <p><strong>Intro Text:</strong> This text will appear on this site's
+            <a href="{{ home_url }}">home page</a> as a welcome to visitors.</p>
+          <p><strong>Custom CSS:</strong> This is a block of CSS that appears in
+            <code>&lt;head&gt;</code> tag of every page. If you wish to customize
+            the templates more fully we recommend
+            <a href="{{ docs_url }}" target="_blank" rel="noreferrer">reading the documentation</a>.</p>
+        {% endtrans %}
+      {% endblock %}
+    </div>
+  </div>
+{% endblock %}
