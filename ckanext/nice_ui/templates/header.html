@@ -30,8 +30,9 @@
     {% endif %}
     <span class="tw:flex tw:flex-col tw:leading-tight">
       <span class="tw:text-lg tw:font-bold tw:tracking-tight tw:text-white">{{ g.site_title }}</span>
-      {% if g.site_description %}
-        <span class="tw:text-xs tw:font-medium tw:text-lime-300">{{ g.site_description }}</span>
+      {% set site_description = h.nice_ui_site_description() %}
+      {% if site_description %}
+        <span class="tw:text-xs tw:font-medium tw:text-lime-300">{{ site_description }}</span>
       {% endif %}
     </span>
   </a>

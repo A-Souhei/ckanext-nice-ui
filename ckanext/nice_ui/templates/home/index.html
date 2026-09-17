@@ -30,8 +30,9 @@
             <i class="fa fa-location-dot" aria-hidden="true"></i>{{ _('Madagascar') }}
           </p>
           <h1 class="tw:m-0 tw:font-display tw:text-5xl tw:leading-[0.95] tw:font-semibold tw:tracking-[-0.045em] tw:text-white tw:sm:text-6xl tw:lg:text-[4.75rem]">{{ g.site_title }}</h1>
-          {% if g.site_description %}
-            <p class="tw:mt-3 tw:mb-0 tw:font-display tw:text-3xl tw:leading-[1.05] tw:font-semibold tw:tracking-[-0.035em] tw:text-gold tw:sm:text-4xl tw:lg:text-5xl">{{ g.site_description }}</p>
+          {% set site_description = h.nice_ui_site_description() %}
+          {% if site_description %}
+            <p class="tw:mt-3 tw:mb-0 tw:font-display tw:text-3xl tw:leading-[1.05] tw:font-semibold tw:tracking-[-0.035em] tw:text-gold tw:sm:text-4xl tw:lg:text-5xl">{{ site_description }}</p>
           {% endif %}
           <p class="tw:mt-6 tw:mb-0 tw:max-w-xl tw:text-base tw:leading-7 tw:text-white/85 tw:sm:text-lg tw:sm:leading-8">{{ _('Find, preview and download open datasets on farming in Madagascar.') }}</p>
 

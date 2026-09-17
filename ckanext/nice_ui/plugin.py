@@ -16,6 +16,17 @@ from ckan.lib.plugins import DefaultTranslation
 CKAN_DEFAULT_LOGO = "/base/images/ckan-logo.png"
 CKAN_DEFAULT_FAVICON = "/base/images/ckan.ico"
 
+
+
+def N_(message):
+    """Marks a string for extraction; it is translated where it is used."""
+    return message
+
+
+# The tagline to configure as ckan.site_description: English here, translated
+# per request by site_description(). Keep them in sync.
+DEFAULT_SITE_DESCRIPTION = N_("Open data for agriculture")
+
 MAP_DATA = Path(__file__).parent / "data" / "madagascar_regions.json"
 MAP_LEVELS = 4
 
@@ -54,6 +65,17 @@ def avatar(name):
         f"{initials.upper()}</text></svg>"
     )
     return "data:image/svg+xml;charset=utf-8," + quote(svg)
+
+
+def site_description():
+    """ckan.site_description in the visitor's language.
+
+    The setting holds one text. When it is a string the catalogs translate,
+    such as DEFAULT_SITE_DESCRIPTION, it follows the language; any other text
+    is shown as configured.
+    """
+    description = tk.config.get("ckan.site_description") or ""
+    return tk._(description) if description else ""
 
 
 def pages_enabled():
@@ -137,4 +159,5 @@ class NiceUiPlugin(p.SingletonPlugin, DefaultTranslation):
             "nice_ui_madagascar_map": madagascar_map,
             "nice_ui_avatar": avatar,
             "nice_ui_pages_enabled": pages_enabled,
+            "nice_ui_site_description": site_description,
         }

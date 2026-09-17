@@ -46,7 +46,7 @@ this one first.
 
 | Setting | Effect |
 |---|---|
-| `ckan.site_title`, `ckan.site_description` | Header, home page hero and footer |
+| `ckan.site_title`, `ckan.site_description` | Header, home page hero and footer. Set the description to `Open data for agriculture` to have it translated; other text is shown as is |
 | `ckan.site_logo`, `ckan.favicon` | Left alone if set; CKAN's stock defaults are replaced by the Sahan'Aina logo and icon |
 | `ckan.featured_groups`, `ckan.featured_orgs` | Featured cards under the newest datasets |
 | `ckan.site_about` | Replaces the Sahan'Aina About page, as in core |

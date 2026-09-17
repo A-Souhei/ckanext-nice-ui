@@ -8,8 +8,9 @@
       <img class="tw:h-14 tw:w-auto" src="{{ h.url_for_static('/nice-ui/logo-white.png') }}" alt="" />
       <div>
         <p class="tw:mb-1 tw:text-lg tw:font-bold tw:text-white">{{ g.site_title }}</p>
-        {% if g.site_description %}
-          <p class="tw:mb-0 tw:max-w-sm tw:text-sm tw:font-medium tw:text-lime-300">{{ g.site_description }}</p>
+        {% set site_description = h.nice_ui_site_description() %}
+        {% if site_description %}
+          <p class="tw:mb-0 tw:max-w-sm tw:text-sm tw:font-medium tw:text-lime-300">{{ site_description }}</p>
         {% endif %}
       </div>
     </div>
