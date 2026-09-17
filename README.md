@@ -8,7 +8,8 @@ section from the field, and the newest datasets. The About page presents
 Sahan'Aina, users, organizations and groups without an image get initials
 avatars in brand colours, and resource formats get file icons. Help texts
 (organizations, groups, datasets, profile, sysadmin screens) talk about "the
-site" rather than "CKAN"; the footer keeps its CKAN credits.
+site" rather than "CKAN"; the footer keeps its CKAN credits. The footer switches
+language with one button per language, and follow buttons are translated.
 
 Built with [Tailwind CSS](https://tailwindcss.com) v4 **on top of** CKAN's
 Bootstrap, not instead of it.
