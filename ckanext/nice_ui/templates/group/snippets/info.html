@@ -1,0 +1,9 @@
+{% ckan_extends %}
+
+{% block image %}
+  <div class="image">
+    <a href="{{ group.url }}">
+      <img src="{{ group.image_display_url or h.nice_ui_avatar(group.title or group.name) }}" width="190" height="118" alt="{{ group.name }}" />
+    </a>
+  </div>
+{% endblock %}

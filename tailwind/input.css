@@ -789,6 +789,210 @@ a.tag:hover {
   color: var(--brand-teal-900);
 }
 
+/* Resource formats: a Font Awesome file icon on a tinted tile instead of CKAN's
+   bitmap sprite. The format name stays in the DOM for screen readers. The
+   attribute selector matches the specificity of core's per-format rules. */
+.format-label,
+.format-label[data-format] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  margin: 0;
+  color: var(--brand-olive-700);
+  background: var(--brand-lime-100);
+  border-radius: 0.625rem;
+  font-size: 0;
+  text-indent: 0;
+  transform: none;
+}
+
+.format-label::before {
+  content: "\f15b";
+  font-family: "Font Awesome 6 Free";
+  font-size: 1rem;
+  font-weight: 900;
+}
+
+.resource-item .format-label {
+  top: 0.75rem;
+  left: 0.75rem;
+}
+
+.format-label[data-format*=csv]::before { content: "\f6dd"; }
+.format-label[data-format*=xls]::before { content: "\f1c3"; }
+.format-label[data-format*=json]::before,
+.format-label[data-format*=xml]::before { content: "\f1c9"; }
+.format-label[data-format*=pdf]::before { content: "\f1c1"; }
+.format-label[data-format*=zip]::before { content: "\f1c6"; }
+.format-label[data-format*=doc]::before { content: "\f1c2"; }
+.format-label[data-format*=txt]::before,
+.format-label[data-format*=text]::before { content: "\f15c"; }
+.format-label[data-format*=png]::before,
+.format-label[data-format*=jp]::before,
+.format-label[data-format*=gif]::before,
+.format-label[data-format*=svg]::before { content: "\f1c5"; }
+.format-label[data-format*=html]::before,
+.format-label[data-format*=api]::before { content: "\f0ac"; }
+
+.format-label[data-format][data-format*=geojson],
+.format-label[data-format][data-format*=kml],
+.format-label[data-format][data-format*=gml],
+.format-label[data-format][data-format*=shp],
+.format-label[data-format][data-format*=wms],
+.format-label[data-format][data-format*=wfs],
+.format-label[data-format][data-format*=wmts] {
+  color: var(--brand-teal-700);
+  background: #e3f0ec;
+}
+
+.format-label[data-format*=geojson]::before,
+.format-label[data-format*=kml]::before,
+.format-label[data-format*=gml]::before,
+.format-label[data-format*=shp]::before,
+.format-label[data-format*=wms]::before,
+.format-label[data-format*=wfs]::before,
+.format-label[data-format*=wmts]::before { content: "\f279"; }
+
+/* ckanext-pages articles, written in Markdown or the WYSIWYG editor. */
+.nice-prose {
+  color: var(--brand-ink);
+  font-size: 1.0625rem;
+  line-height: 1.75;
+}
+
+.nice-prose h2,
+.nice-prose h3 {
+  margin: 2.25rem 0 0.75rem;
+  color: var(--brand-teal-900);
+  font-family: var(--brand-font-display);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.nice-prose h2 {
+  font-size: 1.875rem;
+}
+
+.nice-prose h3 {
+  font-size: 1.375rem;
+}
+
+.nice-prose p,
+.nice-prose ul,
+.nice-prose ol {
+  margin-bottom: 1.125rem;
+}
+
+.nice-prose li + li {
+  margin-top: 0.375rem;
+}
+
+.nice-prose a {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.nice-prose img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 1rem;
+}
+
+.nice-prose blockquote {
+  margin: 1.75rem 0;
+  padding-left: 1.25rem;
+  color: var(--brand-olive-800);
+  border-left: 3px solid var(--brand-gold);
+  font-family: var(--brand-font-display);
+  font-size: 1.375rem;
+  line-height: 1.45;
+}
+
+/* Initials avatars (and uploaded images) for users, organizations and groups. */
+.user-image {
+  border-radius: 9999px;
+}
+
+.media-item .media-image,
+.group-list .module-image img {
+  border-radius: 1rem;
+}
+
+/* Organization and group listings: a responsive card grid instead of fixed
+   178px floats on a grey patterned panel. CKAN's media-grid module runs
+   Masonry, which pins every card with inline absolute positions and a fixed
+   list height; the grid has to override those. */
+.media-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr));
+  gap: 1rem;
+  height: auto !important;
+  min-height: 0;
+  padding: 0;
+  background: none;
+  border: 0;
+}
+
+.media-grid::after {
+  content: none;
+}
+
+.media-item {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  float: none;
+  width: auto;
+  min-width: 0;
+  margin: 0;
+  padding: 0.875rem 0.875rem 1rem;
+  border-radius: 1.25rem;
+}
+
+.media-item .media-image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  margin-bottom: 0.875rem;
+  object-fit: cover;
+}
+
+.media-heading {
+  color: var(--brand-teal-900);
+  font-size: 1rem;
+  font-weight: 700;
+  word-break: normal;
+  overflow-wrap: anywhere;
+}
+
+.media-description {
+  margin-bottom: 0.625rem;
+  color: var(--brand-muted);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  word-break: normal;
+  overflow-wrap: anywhere;
+}
+
+.media-item .count {
+  color: var(--brand-muted);
+  font-size: 0.75rem;
+}
+
+.media-view {
+  border-color: var(--brand-sand-200);
+  border-radius: 1.25rem;
+}
+
+.media-view:hover,
+.media-view.hovered {
+  border-color: var(--brand-lime-500);
+  box-shadow: 0 12px 28px -16px rgb(10 30 0 / 0.28);
+}
+
 /* Home page --------------------------------------------------------------- */
 
 /* Dark on the text side, clear on the photo side, as on sahan-aina.com; phones

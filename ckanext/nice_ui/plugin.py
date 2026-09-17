@@ -1,9 +1,11 @@
 import functools
+import hashlib
 import json
 import math
 import re
 import unicodedata
 from pathlib import Path
+from urllib.parse import quote
 
 import ckan.plugins as p
 import ckan.plugins.toolkit as tk
@@ -16,6 +18,46 @@ CKAN_DEFAULT_FAVICON = "/base/images/ckan.ico"
 
 MAP_DATA = Path(__file__).parent / "data" / "madagascar_regions.json"
 MAP_LEVELS = 4
+
+# (background, text) pairs from the brand palette.
+AVATAR_COLOURS = (
+    ("#11614f", "#ffffff"),
+    ("#4f6908", "#ffffff"),
+    ("#003228", "#b5d56a"),
+    ("#eaf3d3", "#3f5306"),
+    ("#feda6f", "#003228"),
+    ("#0a4a3d", "#feda6f"),
+)
+
+
+def avatar(name):
+    """An initials avatar as a data URI, for users, organizations and groups
+    without an uploaded image. The same name always gets the same colour."""
+    name = name or ""
+    words = re.findall(r"[^\W_]+", name)
+    # "Minisiteran'ny Fambolena" reads as MF, not MN.
+    words = [w for w in words if len(w) > 2] or words
+    if len(words) > 1:
+        initials = words[0][0] + words[1][0]
+    elif words:
+        initials = words[0][0]
+    else:
+        initials = "?"
+    digest = hashlib.sha1(name.encode("utf-8")).digest()
+    background, text = AVATAR_COLOURS[digest[0] % len(AVATAR_COLOURS)]
+    svg = (
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">'
+        f'<rect width="64" height="64" fill="{background}"/>'
+        f'<circle cx="64" cy="0" r="44" fill="{text}" fill-opacity="0.08"/>'
+        f'<text x="32" y="33" fill="{text}" font-family="ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif" '
+        f'font-size="{26 if len(initials) > 1 else 30}" font-weight="600" text-anchor="middle" dominant-baseline="central">'
+        f"{initials.upper()}</text></svg>"
+    )
+    return "data:image/svg+xml;charset=utf-8," + quote(svg)
+
+
+def pages_enabled():
+    return p.plugin_loaded("pages")
 
 
 def new_datasets(limit=3):
@@ -93,4 +135,6 @@ class NiceUiPlugin(p.SingletonPlugin, DefaultTranslation):
         return {
             "nice_ui_new_datasets": new_datasets,
             "nice_ui_madagascar_map": madagascar_map,
+            "nice_ui_avatar": avatar,
+            "nice_ui_pages_enabled": pages_enabled,
         }
