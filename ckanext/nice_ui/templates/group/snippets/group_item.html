@@ -3,3 +3,19 @@
 {% block image %}
   <img src="{{ group.image_display_url or h.nice_ui_avatar(group.title or group.name) }}" alt="{{ group.name }}" class="media-image img-fluid">
 {% endblock %}
+
+{# Same as core, inside nice-ui's catalog: CKAN's French has no "{num} Member".
+   The role is a pill: core's label-default is a Bootstrap 3 class. #}
+{% block members %}
+  {% if 'member_count' in group and group.member_count %}
+    <strong class="count">{{ ungettext('{num} Member', '{num} Members', group.member_count).format(num=group.member_count) }}</strong>
+  {% elif 'member_count' in group %}
+    <span class="count">{{ _('0 Members') }}</span>
+  {% endif %}
+{% endblock %}
+
+{% block capacity %}
+  {% if show_capacity and group.capacity %}
+    <span class="nice-role">{{ h.roles_translated().get(group.capacity, group.capacity) }}</span>
+  {% endif %}
+{% endblock %}

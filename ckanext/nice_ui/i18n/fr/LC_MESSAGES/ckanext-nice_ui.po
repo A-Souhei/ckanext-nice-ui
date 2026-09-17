@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ckanext-nice-ui 0.1.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-09-17 07:39+0000\n"
+"POT-Creation-Date: 2026-09-17 07:53+0000\n"
 "PO-Revision-Date: 2026-09-16 14:40+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fr\n"
@@ -227,6 +227,18 @@ msgstr "Lire la suite"
 #: ckanext/nice_ui/templates/ckanext_pages/pages_list.html:44
 msgid "There are currently no pages here"
 msgstr "Il n'y a aucune page pour le moment"
+
+#: ckanext/nice_ui/templates/group/snippets/group_item.html:11
+#: ckanext/nice_ui/templates/organization/snippets/organization_item.html:11
+msgid "{num} Member"
+msgid_plural "{num} Members"
+msgstr[0] "{num} membre"
+msgstr[1] "{num} membres"
+
+#: ckanext/nice_ui/templates/group/snippets/group_item.html:13
+#: ckanext/nice_ui/templates/organization/snippets/organization_item.html:13
+msgid "0 Members"
+msgstr "Aucun membre"
 
 #: ckanext/nice_ui/templates/group/snippets/helper.html:5
 msgid "What are Groups?"

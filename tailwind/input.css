@@ -940,6 +940,10 @@ a.tag:hover {
   content: none;
 }
 
+/* `.media-grid` in the selector: user profile pages wrap the grid in `.wide`,
+   and core's `.wide .media-item` would otherwise force 186px cards that
+   overflow their columns and overlap. */
+.media-grid .media-item,
 .media-item {
   position: relative !important;
   top: auto !important;
@@ -975,6 +979,17 @@ a.tag:hover {
   line-height: 1.5;
   word-break: normal;
   overflow-wrap: anywhere;
+}
+
+.media-item .nice-role {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.125rem 0.625rem;
+  color: var(--brand-olive-800);
+  background-color: var(--brand-lime-100);
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
 }
 
 .media-item .count {
