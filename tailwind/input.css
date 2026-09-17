@@ -1069,6 +1069,174 @@ a.tag:hover {
   box-shadow: 0 35px 80px -38px rgb(10 30 0 / 0.4);
 }
 
+/* XLoader DataStore log ----------------------------------------------------- */
+
+.nice-log-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  color: var(--brand-muted);
+  background-color: var(--brand-sand-200);
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.nice-log-status::before {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: currentColor;
+  border-radius: 9999px;
+}
+
+.nice-log-status[data-tone="ok"] { color: var(--brand-olive-800); background-color: var(--brand-lime-100); }
+.nice-log-status[data-tone="error"] { color: #991b1b; background-color: #fee2e2; }
+.nice-log-status[data-tone="busy"] { color: #854d0e; background-color: #fef3c7; }
+
+.nice-log {
+  position: relative;
+}
+
+/* The timeline rail runs behind the icons. */
+.nice-log::before {
+  content: "";
+  position: absolute;
+  top: 0.75rem;
+  bottom: 0.75rem;
+  left: 0.8125rem;
+  width: 2px;
+  background-color: var(--brand-sand-100);
+}
+
+.nice-log-item {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.875rem;
+  padding: 0.5rem 0;
+}
+
+.nice-log-icon {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  color: var(--brand-muted);
+  background-color: #fff;
+  border: 2px solid var(--brand-sand-200);
+  border-radius: 9999px;
+  font-size: 0.6875rem;
+}
+
+.nice-log-icon::before {
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+}
+
+.nice-log-item[data-level="info"] .nice-log-icon { color: var(--brand-olive-700); background-color: var(--brand-lime-100); border-color: var(--brand-lime-100); }
+.nice-log-item[data-level="info"] .nice-log-icon::before { content: "\f00c"; }
+.nice-log-item[data-level="debug"] .nice-log-icon::before { content: "\f121"; }
+.nice-log-item[data-level="warning"] .nice-log-icon { color: #854d0e; background-color: #fef3c7; border-color: #fef3c7; }
+.nice-log-item[data-level="warning"] .nice-log-icon::before { content: "\f071"; }
+.nice-log-item[data-level="error"] .nice-log-icon,
+.nice-log-item[data-level="critical"] .nice-log-icon { color: #991b1b; background-color: #fee2e2; border-color: #fee2e2; }
+.nice-log-item[data-level="error"] .nice-log-icon::before,
+.nice-log-item[data-level="critical"] .nice-log-icon::before { content: "\f00d"; }
+.nice-log-gap .nice-log-icon::before { content: "\f141"; }
+.nice-log-end .nice-log-icon { color: var(--brand-teal-700); border-color: var(--brand-teal-700); }
+.nice-log-end .nice-log-icon::before { content: "\f11e"; }
+
+.nice-log-message {
+  padding-top: 0.25rem;
+  color: var(--brand-ink);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+/* Debug lines dump raw values (encodings, field lists): quieter, monospace. */
+.nice-log-item[data-level="debug"] .nice-log-message {
+  color: var(--brand-muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.75rem;
+}
+
+.nice-log-gap > div,
+.nice-log-end > div {
+  padding-top: 0.25rem;
+  color: var(--brand-muted);
+  font-size: 0.875rem;
+}
+
+.nice-log-time {
+  flex-shrink: 0;
+  padding-top: 0.25rem;
+  color: var(--brand-muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.75rem;
+}
+
+.nice-log-details summary {
+  display: inline-block;
+  color: var(--brand-olive-700);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.nice-log-details summary::-webkit-details-marker {
+  display: none;
+}
+
+.nice-log-details summary::before {
+  content: "\f054";
+  display: inline-block;
+  margin-right: 0.375rem;
+  font-family: "Font Awesome 6 Free";
+  font-size: 0.625rem;
+  font-weight: 900;
+  transition: transform 0.15s ease-in-out;
+}
+
+.nice-log-details[open] summary::before {
+  transform: rotate(90deg);
+}
+
+/* One "Details" per line is noise: reveal it with the pointer or keyboard. */
+@media (hover: hover) {
+  .nice-log-item:not(:hover):not(:focus-within) .nice-log-details:not([open]) summary {
+    opacity: 0;
+  }
+}
+
+.nice-log-details dl {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 0.25rem 1rem;
+  margin: 0.5rem 0 0.25rem;
+  padding: 0.75rem 1rem;
+  background-color: var(--brand-sand-50);
+  border: 1px solid var(--brand-sand-100);
+  border-radius: 0.75rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.75rem;
+}
+
+.nice-log-details dt {
+  color: var(--brand-muted);
+  font-weight: 600;
+}
+
+.nice-log-details dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
 /* Madagascar map ---------------------------------------------------------- */
 
 .nice-map-region path {

@@ -27,8 +27,11 @@ pip install -e git+https://github.com/A-Souhei/ckanext-nice-ui.git#egg=ckanext-n
 ```
 
 ```ini
-ckan.plugins = … nice_ui …
+ckan.plugins = … datastore nice_ui xloader … pages …
 ```
+
+In CKAN the first plugin to ship a template wins, so list `nice_ui` before the
+extensions it restyles (ckanext-xloader, ckanext-pages).
 
 Install it **editable** (`-e`): a regular wheel lands in
 `site-packages/ckanext`, which CKAN's pre-seeded `ckanext` namespace never
@@ -49,8 +52,9 @@ this one first.
 | `ckan.gravatar_default = disabled` | Users without a picture get initials avatars instead of Gravatar images (organizations and groups always do) |
 
 With [ckanext-pages](https://github.com/ckan/ckanext-pages) enabled, the main
-menu links its page index and its list and page views are restyled. Load
-`nice_ui` before `pages` in `ckan.plugins` so these templates win.
+menu links its page index and its list and page views are restyled. With
+[ckanext-xloader](https://github.com/ckan/ckanext-xloader), the DataStore tab of
+a resource shows its upload log as a timeline.
 
 ## Region map
 

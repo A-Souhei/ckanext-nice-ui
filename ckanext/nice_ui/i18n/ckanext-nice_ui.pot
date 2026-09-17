@@ -390,3 +390,63 @@ msgstr ""
 msgid "Your profile lets other users know about who you are and what you do."
 msgstr ""
 
+#: ckanext/nice_ui/templates/xloader/resource_data.html:15
+msgid "Upload to DataStore"
+msgstr ""
+
+#: ckanext/nice_ui/templates/xloader/resource_data.html:27
+msgid "Are you sure you want to delete the DataStore and Data Dictionary?"
+msgstr ""
+
+#: ckanext/nice_ui/templates/xloader/resource_data.html:28
+msgid "Delete from DataStore"
+msgstr ""
+
+#: ckanext/nice_ui/templates/xloader/resource_data.html:38
+msgid "Upload error:"
+msgstr ""
+
+#: ckanext/nice_ui/templates/xloader/resource_data.html:43
+msgid "Error:"
+msgstr ""
+
+#: ckanext/nice_ui/templates/xloader/resource_data.html:50
+msgid "Error traceback:"
+msgstr ""
+
+#: ckanext/nice_ui/templates/xloader/resource_data.html:59
+msgid "Status"
+msgstr ""
+
+#: ckanext/nice_ui/templates/xloader/resource_data.html:63
+msgid "Last updated"
+msgstr ""
+
+#: ckanext/nice_ui/templates/xloader/resource_data.html:65
+msgid "Never"
+msgstr ""
+
+#: ckanext/nice_ui/templates/xloader/resource_data.html:75
+msgid "Upload Log"
+msgstr ""
+
+#: ckanext/nice_ui/templates/xloader/resource_data.html:87
+msgid "Details"
+msgstr ""
+
+#: ckanext/nice_ui/templates/xloader/resource_data.html:101
+msgid "{hidden} of {total} log entries hidden"
+msgstr ""
+
+#: ckanext/nice_ui/templates/xloader/resource_data.html:103
+msgid "Show more"
+msgstr ""
+
+#: ckanext/nice_ui/templates/xloader/resource_data.html:104
+msgid "Show all"
+msgstr ""
+
+#: ckanext/nice_ui/templates/xloader/resource_data.html:112
+msgid "End of log"
+msgstr ""
+
