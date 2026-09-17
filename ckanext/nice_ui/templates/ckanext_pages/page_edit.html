@@ -1,0 +1,11 @@
+{% ckan_extends %}
+
+{% block breadcrumb_content %}
+  <li>{% link_for _('Pages'), named_route='pages.pages_index' %}</li>
+  {% if page %}
+    <li><a href="{{ h.url_for('pages.show', page=page) }}">{{ (data.title or page) | truncate(35) }}</a></li>
+    <li class="active"><a href="{{ h.url_for('pages.edit', page=page) }}">{{ _('Edit page') }}</a></li>
+  {% else %}
+    <li class="active"><a href="{{ h.url_for('pages.new') }}">{{ _('Add page') }}</a></li>
+  {% endif %}
+{% endblock %}

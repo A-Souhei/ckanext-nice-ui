@@ -1,0 +1,8 @@
+{# Core hard-codes "Follow" and "Unfollow" in English. Same htmx wiring:
+   'user.unfollow' anchors to '#user-info', and so on. #}
+{% set anchor_type = anchor_type or obj_type %}
+{% if following or am_following %}
+  <a class="btn btn-default nice-follow" hx-post="{{ h.url_for(obj_type + '.unfollow', id=obj_id) }}" hx-target="#{{ anchor_type }}-info"><i class="fa-solid fa-bell-slash" aria-hidden="true"></i> {{ _('Unfollow') }}</a>
+{% else %}
+  <a class="btn btn-primary nice-follow" hx-post="{{ h.url_for(obj_type + '.follow', id=obj_id) }}" hx-target="#{{ anchor_type }}-info"><i class="fa-solid fa-bell" aria-hidden="true"></i> {{ _('Follow') }}</a>
+{% endif %}

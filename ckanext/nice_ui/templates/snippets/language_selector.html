@@ -1,0 +1,17 @@
+{# One button per language instead of a select2 dropdown: each button posts its
+   own URL to the same redirect view, so no JavaScript is needed. #}
+{% set current_lang = request.environ.CKAN_LANG %}
+<form class="lang-select nice-lang" action="{% url_for 'util.internal_redirect' %}" method="POST">
+  {{ h.csrf_input() }}
+  <p id="nice-lang-label" class="nice-lang-label"><i class="fa fa-globe" aria-hidden="true"></i> {{ _('Language') }}</p>
+  <div class="nice-lang-options" role="group" aria-labelledby="nice-lang-label">
+    {% for locale in h.get_available_locales() %}
+      <button type="submit" name="url" class="nice-lang-option"
+              value="{% url_for h.current_url(), locale=locale.short_name %}"
+              lang="{{ locale.short_name.replace('_', '-') }}"
+              {% if locale.short_name == current_lang %}aria-current="true"{% endif %}>
+        {{ (locale.display_name or locale.english_name) | capitalize }}
+      </button>
+    {% endfor %}
+  </div>
+</form>

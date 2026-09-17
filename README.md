@@ -52,7 +52,8 @@ this one first.
 | `ckan.gravatar_default = disabled` | Users without a picture get initials avatars instead of Gravatar images (organizations and groups always do) |
 
 With [ckanext-pages](https://github.com/ckan/ckanext-pages) enabled, the main
-menu links its page index and its list and page views are restyled. With
+menu links its page index, and its list, page view and editor are restyled
+(the editor's publish date is a native date input). With
 [ckanext-xloader](https://github.com/ckan/ckanext-xloader), the DataStore tab of
 a resource shows its upload log as a timeline.
 

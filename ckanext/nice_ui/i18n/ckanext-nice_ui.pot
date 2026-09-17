@@ -15,6 +15,7 @@ msgid "Groups"
 msgstr ""
 
 #: ckanext/nice_ui/templates/ckanext_pages/page.html:4
+#: ckanext/nice_ui/templates/ckanext_pages/page_edit.html:4
 #: ckanext/nice_ui/templates/ckanext_pages/pages_list.html:4
 #: ckanext/nice_ui/templates/ckanext_pages/pages_list.html:21
 #: ckanext/nice_ui/templates/header.html:19
@@ -58,6 +59,107 @@ msgid ""
 "care!</p> <p>For guidance on using sysadmin features, see the <a "
 "href=\"%(docs_url)s\" target=\"_blank\" rel=\"noreferrer\">sysadmin "
 "guide</a>.</p>"
+msgstr ""
+
+#: ckanext/nice_ui/templates/ckanext_pages/base_form.html:46
+msgid "Edit Blog Article"
+msgstr ""
+
+#: ckanext/nice_ui/templates/ckanext_pages/base_form.html:46
+msgid "Add Blog Article"
+msgstr ""
+
+#: ckanext/nice_ui/templates/ckanext_pages/base_form.html:48
+msgid "eg. Blog Article Title"
+msgstr ""
+
+#: ckanext/nice_ui/templates/ckanext_pages/base_form.html:50
+#: ckanext/nice_ui/templates/ckanext_pages/page_edit.html:7
+msgid "Edit page"
+msgstr ""
+
+#: ckanext/nice_ui/templates/ckanext_pages/base_form.html:50
+#: ckanext/nice_ui/templates/ckanext_pages/page_edit.html:9
+msgid "Add page"
+msgstr ""
+
+#: ckanext/nice_ui/templates/ckanext_pages/base_form.html:52
+msgid "eg. Page Title"
+msgstr ""
+
+#: ckanext/nice_ui/templates/ckanext_pages/base_form.html:66
+msgid "Title"
+msgstr ""
+
+#: ckanext/nice_ui/templates/ckanext_pages/base_form.html:70
+msgid "URL"
+msgstr ""
+
+#: ckanext/nice_ui/templates/ckanext_pages/base_form.html:80
+#: ckanext/nice_ui/templates/ckanext_pages/base_form.html:85
+#: ckanext/nice_ui/templates/ckanext_pages/base_form.html:89
+msgid "Content"
+msgstr ""
+
+#: ckanext/nice_ui/templates/ckanext_pages/base_form.html:80
+#: ckanext/nice_ui/templates/ckanext_pages/base_form.html:89
+msgid "Enter content here"
+msgstr ""
+
+#: ckanext/nice_ui/templates/ckanext_pages/base_form.html:87
+msgid "My content"
+msgstr ""
+
+#: ckanext/nice_ui/templates/ckanext_pages/base_form.html:95
+msgid "Publishing"
+msgstr ""
+
+#: ckanext/nice_ui/templates/ckanext_pages/base_form.html:99
+msgid "Visibility"
+msgstr ""
+
+#: ckanext/nice_ui/templates/ckanext_pages/base_form.html:101
+msgid "Private"
+msgstr ""
+
+#: ckanext/nice_ui/templates/ckanext_pages/base_form.html:101
+msgid "Public"
+msgstr ""
+
+#: ckanext/nice_ui/templates/ckanext_pages/base_form.html:109
+msgid "Menu Order"
+msgstr ""
+
+#: ckanext/nice_ui/templates/ckanext_pages/base_form.html:111
+msgid "Not in Menu"
+msgstr ""
+
+#: ckanext/nice_ui/templates/ckanext_pages/base_form.html:115
+msgid "Public pages with a menu order are linked from the main menu."
+msgstr ""
+
+#: ckanext/nice_ui/templates/ckanext_pages/base_form.html:121
+msgid "Publish Date"
+msgstr ""
+
+#: ckanext/nice_ui/templates/ckanext_pages/base_form.html:131
+msgid "Are you sure you want to delete this Page?"
+msgstr ""
+
+#: ckanext/nice_ui/templates/ckanext_pages/base_form.html:132
+msgid "Delete"
+msgstr ""
+
+#: ckanext/nice_ui/templates/ckanext_pages/base_form.html:136
+msgid "Cancel"
+msgstr ""
+
+#: ckanext/nice_ui/templates/ckanext_pages/base_form.html:137
+msgid "Save"
+msgstr ""
+
+#: ckanext/nice_ui/templates/ckanext_pages/base_form.html:137
+msgid "Add"
 msgstr ""
 
 #: ckanext/nice_ui/templates/ckanext_pages/blog_edit_base.html:7
@@ -380,6 +482,18 @@ msgid ""
 "A dataset is a collection of data resources (such as files), together "
 "with a description and other information, at a fixed URL. Datasets are "
 "what users see when searching for data."
+msgstr ""
+
+#: ckanext/nice_ui/templates/snippets/follow_button.html:5
+msgid "Unfollow"
+msgstr ""
+
+#: ckanext/nice_ui/templates/snippets/follow_button.html:7
+msgid "Follow"
+msgstr ""
+
+#: ckanext/nice_ui/templates/snippets/language_selector.html:6
+msgid "Language"
 msgstr ""
 
 #: ckanext/nice_ui/templates/user/edit.html:5
