@@ -10,6 +10,8 @@ avatars in brand colours, and resource formats get file icons. Help texts
 (organizations, groups, datasets, profile, sysadmin screens) talk about "the
 site" rather than "CKAN"; the footer keeps its CKAN credits. The footer switches
 language with one button per language, and follow buttons are translated.
+Custom fields (extras) on dataset, organization and group forms are one
+key/value list with an "Add field" button and a remove toggle per pair.
 
 Built with [Tailwind CSS](https://tailwindcss.com) v4 **on top of** CKAN's
 Bootstrap, not instead of it.

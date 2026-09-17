@@ -1,0 +1,58 @@
+{#
+  Custom key/value fields ("extras") of datasets, organizations and groups.
+
+  Same field names as core (extras__N__key, __value, __deleted), shown as one
+  list with column headings, a single empty row and an "Add field" button
+  instead of three separate empty "Custom Field" blocks. A pair marked for
+  removal stays in the form with its deleted flag, which is what CKAN reads.
+
+  extras - The fields to add.
+  errors - A dict of errors for the fields.
+  limit  - Accepted for compatibility; one empty row is shown, more on demand.
+#}
+{% set extras = extras or [] %}
+{% set errors = errors or {} %}
+{% asset 'nice-ui/extras' %}
+
+<fieldset class="nice-extras" data-module="nice-extras">
+  <legend class="form-label">{{ _('Custom fields') }}</legend>
+  <p class="form-text tw:mt-0 tw:mb-3">{{ _('Any other information, as a key and a value.') }}</p>
+
+  <div class="nice-extras-head" aria-hidden="true">
+    <span>{{ _('Key') }}</span>
+    <span>{{ _('Value') }}</span>
+  </div>
+
+  <ol class="nice-extras-list list-unstyled">
+    {% for extra in extras | list + [{}] %}
+      {% set index = loop.index0 %}
+      {% set prefix = 'extras__%d__' % index %}
+      {% set error = errors[prefix ~ 'key'] or errors[prefix ~ 'value'] %}
+      <li class="nice-extras-row{{ ' has-error' if error }}">
+        <label class="visually-hidden" for="field-extras-{{ index }}-key">{{ _('Key') }}</label>
+        <input class="form-control" id="field-extras-{{ index }}-key" type="text" name="{{ prefix }}key"
+               value="{{ extra.key | empty_and_escape }}" placeholder="{{ _('Key') }}" />
+        <label class="visually-hidden" for="field-extras-{{ index }}-value">{{ _('Value') }}</label>
+        <input class="form-control" id="field-extras-{{ index }}-value" type="text" name="{{ prefix }}value"
+               value="{{ extra.value | empty_and_escape }}" placeholder="{{ _('Value') }}" />
+        {% if extra.key or extra.value or error %}
+          <label class="nice-extras-remove" title="{{ _('Remove') }}">
+            <input type="checkbox" name="{{ prefix }}deleted"{{ ' checked' if extra.deleted }} />
+            <i class="fa fa-trash-can" aria-hidden="true"></i>
+            <span class="visually-hidden">{{ _('Remove') }}</span>
+          </label>
+        {% else %}
+          <span class="nice-extras-spacer"></span>
+        {% endif %}
+        {% if error %}
+          <p class="nice-extras-error">{{ error if error is string else error | join(' ') }}</p>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ol>
+
+  {# Revealed by the nice-extras module; without JavaScript, saving adds a new empty row. #}
+  <button type="button" class="btn btn-default nice-extras-add" hidden>
+    <i class="fa fa-plus" aria-hidden="true"></i> {{ _('Add field') }}
+  </button>
+</fieldset>

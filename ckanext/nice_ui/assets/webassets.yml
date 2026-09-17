@@ -4,3 +4,12 @@ main:
   output: nice-ui/%(version)s_main.css
   contents:
     - nice-ui.css
+
+extras:
+  filters: rjsmin
+  output: nice-ui/%(version)s_extras.js
+  extra:
+    preload:
+      - base/main
+  contents:
+    - nice-extras.js

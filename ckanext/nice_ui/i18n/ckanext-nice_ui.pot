@@ -500,6 +500,35 @@ msgid ""
 "what users see when searching for data."
 msgstr ""
 
+#: ckanext/nice_ui/templates/snippets/custom_form_fields.html:18
+msgid "Custom fields"
+msgstr ""
+
+#: ckanext/nice_ui/templates/snippets/custom_form_fields.html:19
+msgid "Any other information, as a key and a value."
+msgstr ""
+
+#: ckanext/nice_ui/templates/snippets/custom_form_fields.html:22
+#: ckanext/nice_ui/templates/snippets/custom_form_fields.html:32
+#: ckanext/nice_ui/templates/snippets/custom_form_fields.html:34
+msgid "Key"
+msgstr ""
+
+#: ckanext/nice_ui/templates/snippets/custom_form_fields.html:23
+#: ckanext/nice_ui/templates/snippets/custom_form_fields.html:35
+#: ckanext/nice_ui/templates/snippets/custom_form_fields.html:37
+msgid "Value"
+msgstr ""
+
+#: ckanext/nice_ui/templates/snippets/custom_form_fields.html:39
+#: ckanext/nice_ui/templates/snippets/custom_form_fields.html:42
+msgid "Remove"
+msgstr ""
+
+#: ckanext/nice_ui/templates/snippets/custom_form_fields.html:56
+msgid "Add field"
+msgstr ""
+
 #: ckanext/nice_ui/templates/snippets/follow_button.html:5
 msgid "Unfollow"
 msgstr ""

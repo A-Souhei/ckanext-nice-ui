@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ckanext-nice-ui 0.1.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-09-17 08:08+0000\n"
+"POT-Creation-Date: 2026-09-17 08:20+0000\n"
 "PO-Revision-Date: 2026-09-16 14:40+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fr\n"
@@ -584,6 +584,35 @@ msgstr ""
 "fichiers), accompagnée d'une description et d'autres informations, à une "
 "URL fixe. Les jeux de données sont ce que les utilisateurs voient "
 "lorsqu'ils recherchent des données."
+
+#: ckanext/nice_ui/templates/snippets/custom_form_fields.html:18
+msgid "Custom fields"
+msgstr "Champs personnalisés"
+
+#: ckanext/nice_ui/templates/snippets/custom_form_fields.html:19
+msgid "Any other information, as a key and a value."
+msgstr "Toute autre information, sous forme de clé et de valeur."
+
+#: ckanext/nice_ui/templates/snippets/custom_form_fields.html:22
+#: ckanext/nice_ui/templates/snippets/custom_form_fields.html:32
+#: ckanext/nice_ui/templates/snippets/custom_form_fields.html:34
+msgid "Key"
+msgstr "Clé"
+
+#: ckanext/nice_ui/templates/snippets/custom_form_fields.html:23
+#: ckanext/nice_ui/templates/snippets/custom_form_fields.html:35
+#: ckanext/nice_ui/templates/snippets/custom_form_fields.html:37
+msgid "Value"
+msgstr ""
+
+#: ckanext/nice_ui/templates/snippets/custom_form_fields.html:39
+#: ckanext/nice_ui/templates/snippets/custom_form_fields.html:42
+msgid "Remove"
+msgstr ""
+
+#: ckanext/nice_ui/templates/snippets/custom_form_fields.html:56
+msgid "Add field"
+msgstr ""
 
 #: ckanext/nice_ui/templates/snippets/follow_button.html:5
 msgid "Unfollow"
