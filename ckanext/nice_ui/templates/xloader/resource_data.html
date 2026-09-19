@@ -35,20 +35,20 @@
   {% if status.error and status.error.message %}
     {% set show_log = false %}
     <div class="alert alert-danger tw:mt-6 tw:mb-0">
-      <strong>{{ _('Upload error:') }}</strong> {{ status.error.message }}
+      <strong>{{ _('Upload error:') }}</strong> {{ h.nice_ui_public_urls(status.error.message) }}
     </div>
   {% elif status.task_info and status.task_info.error %}
     <div class="alert alert-danger tw:mt-6 tw:mb-0">
       {% if status.task_info.error is mapping %}
-        <strong>{{ _('Error:') }}</strong> {{ status.task_info.error.message }}
+        <strong>{{ _('Error:') }}</strong> {{ h.nice_ui_public_urls(status.task_info.error.message) }}
         {% for error_key, error_value in status.task_info.error.items() %}
           {% if error_key != 'message' and error_value %}
-            <br><strong>{{ error_key }}</strong>: {{ error_value }}
+            <br><strong>{{ error_key }}</strong>: {{ h.nice_ui_public_urls(error_value) }}
           {% endif %}
         {% endfor %}
       {% elif status.task_info.error is iterable %}
         <strong>{{ _('Error traceback:') }}</strong>
-        <pre class="tw:mt-2 tw:mb-0 tw:whitespace-pre-wrap">{{ ''.join(status.task_info.error) }}</pre>
+        <pre class="tw:mt-2 tw:mb-0 tw:whitespace-pre-wrap">{{ h.nice_ui_public_urls(''.join(status.task_info.error)) }}</pre>
       {% endif %}
     </div>
   {% endif %}
@@ -81,7 +81,7 @@
             <span class="nice-log-icon" title="{{ item.level }}" aria-hidden="true"></span>
             <div class="tw:min-w-0 tw:flex-1">
               <div class="nice-log-message">
-                {%- for line in item.message.strip().split('\n') %}{{ line | urlize }}{% if not loop.last %}<br>{% endif %}{% endfor -%}
+                {%- for line in item.message.strip().split('\n') %}{{ h.nice_ui_public_urls(line) | urlize }}{% if not loop.last %}<br>{% endif %}{% endfor -%}
               </div>
               <details class="nice-log-details">
                 <summary>{{ _('Details') }}</summary>

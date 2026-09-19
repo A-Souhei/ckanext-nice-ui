@@ -82,6 +82,15 @@ def pages_enabled():
     return p.plugin_loaded("pages")
 
 
+def public_urls(text):
+    """XLoader downloads through an internal address and logs it; show the public one."""
+    internal = tk.config.get("ckanext.xloader.site_url", "").rstrip("/")
+    public = tk.config.get("ckan.site_url", "").rstrip("/")
+    if not isinstance(text, str) or not internal or internal == public:
+        return text
+    return text.replace(internal, public)
+
+
 def new_datasets(limit=3):
     """The most recently created public datasets, for the home page."""
     result = tk.get_action("package_search")(
@@ -160,4 +169,5 @@ class NiceUiPlugin(p.SingletonPlugin, DefaultTranslation):
             "nice_ui_avatar": avatar,
             "nice_ui_pages_enabled": pages_enabled,
             "nice_ui_site_description": site_description,
+            "nice_ui_public_urls": public_urls,
         }
