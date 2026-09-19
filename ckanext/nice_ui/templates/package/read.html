@@ -1,0 +1,58 @@
+{% ckan_extends %}
+
+{#- One header instead of CKAN's sidebar title plus page title: the key facts,
+    tags and follow button sit with the title. -#}
+{% block package_description %}
+  <header class="nice-dataset-head">
+    <div class="nice-dataset-eyebrow">
+      {% if pkg.organization %}
+        <a href="{{ h.url_for('organization.read', id=pkg.organization.name) }}">{{ pkg.organization.title or pkg.organization.name }}</a>
+      {% endif %}
+      {% if pkg.private %}
+        <span class="nice-dataset-flag"><i class="fa fa-lock" aria-hidden="true"></i> {{ _('Private') }}</span>
+      {% endif %}
+      {% if pkg.state.startswith('draft') %}
+        <span class="nice-dataset-flag">{{ _('Draft') }}</span>
+      {% endif %}
+      {% if pkg.state == 'deleted' %}
+        <span class="nice-dataset-flag">{{ _('Deleted') }}</span>
+      {% endif %}
+    </div>
+    <h1 class="nice-dataset-title">{% block page_heading %}{{ h.dataset_display_name(pkg) }}{% endblock %}</h1>
+    {% block package_notes %}
+      {% if pkg.notes %}
+        <div class="notes embedded-content nice-prose">
+          {{ h.render_markdown(h.get_translated(pkg, 'notes')) }}
+        </div>
+      {% endif %}
+    {% endblock %}
+    {% snippet "package/snippets/tags.html", tags=pkg.tags %}
+    {% set formats = h.dict_list_reduce(pkg.resources, 'format') %}
+    <dl class="nice-dataset-facts">
+      <div>
+        <dt>{{ _('Resources') }}</dt>
+        <dd>
+          {{ pkg.num_resources or 0 }}
+          {%- if formats %} <span class="nice-dataset-formats">· {{ formats | join(', ') }}</span>{% endif %}
+        </dd>
+      </div>
+      <div>
+        <dt>{{ _('License') }}</dt>
+        <dd>{% snippet "snippets/license.html", pkg_dict=pkg, text_only=True %}</dd>
+      </div>
+      {% if pkg.metadata_modified %}
+        <div>
+          <dt>{{ _('Last Updated') }}</dt>
+          <dd>{{ h.render_datetime(pkg.metadata_modified) }}</dd>
+        </div>
+      {% endif %}
+    </dl>
+    {% if current_user.is_authenticated %}
+      <div class="nice-dataset-actions">
+        {% snippet 'snippets/follow_button.html', am_following=am_following, obj_type='dataset', obj_id=pkg.id, anchor_type='package' %}
+      </div>
+    {% endif %}
+  </header>
+{% endblock %}
+
+{% block package_tags %}{% endblock %}

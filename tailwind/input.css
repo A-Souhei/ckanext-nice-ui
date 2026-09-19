@@ -777,16 +777,94 @@ a.tag:hover {
   color: var(--brand-muted);
 }
 
+/* Resources as cards, on the dataset page and the editor's Resources tab.
+   Buttons (package/snippets/resource_item.html) replace CKAN's dropdown. */
+.resource-list {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+}
+
 .resource-item {
-  border-radius: 0.75rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: "title actions" "meta actions";
+  align-items: center;
+  column-gap: 1rem;
+  padding: 0.875rem 1rem;
+  background-color: #fff;
+  border: 1px solid var(--brand-sand-200);
+  border-radius: 1rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
 .resource-item:hover {
-  background-color: var(--brand-lime-100);
+  background-color: #fff;
+  border-color: var(--brand-lime-300);
+  box-shadow: 0 12px 28px -18px rgb(10 30 0 / 0.3);
 }
 
 .resource-item .heading {
+  grid-area: title;
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  min-width: 0;
   color: var(--brand-teal-900);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.resource-item .heading .format-label {
+  position: static;
+  order: -1;
+  flex: none;
+}
+
+/* Indented past the 2.25rem format tile and its gap, under the name. */
+.resource-item .description {
+  grid-area: meta;
+  min-height: 0;
+  margin: 0.15rem 0 0 3.125rem;
+  color: var(--brand-muted);
+  font-size: 0.875rem;
+}
+
+.resource-item .description:empty {
+  display: none;
+}
+
+.nice-resource-format {
+  margin-right: 0.5rem;
+  color: var(--brand-olive-700);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.nice-resource-actions {
+  grid-area: actions;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.nice-resource-actions .btn {
+  white-space: nowrap;
+}
+
+@media (max-width: 575.98px) {
+  .resource-item {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "title" "meta" "actions";
+  }
+
+  .nice-resource-actions {
+    justify-content: flex-start;
+    margin-top: 0.75rem;
+  }
 }
 
 /* Resource formats: a Font Awesome file icon on a tinted tile instead of CKAN's
@@ -813,11 +891,6 @@ a.tag:hover {
   font-family: "Font Awesome 6 Free";
   font-size: 1rem;
   font-weight: 900;
-}
-
-.resource-item .format-label {
-  top: 0.75rem;
-  left: 0.75rem;
 }
 
 .format-label[data-format*=csv]::before { content: "\f6dd"; }
@@ -854,6 +927,183 @@ a.tag:hover {
 .format-label[data-format*=wms]::before,
 .format-label[data-format*=wfs]::before,
 .format-label[data-format*=wmts]::before { content: "\f279"; }
+
+/* Dataset page (package/read.html): one header with the key facts, then the
+   resources, then CKAN's additional info as a definition list. */
+.nice-dataset-head {
+  margin-bottom: 2rem;
+  padding-bottom: 1.75rem;
+  border-bottom: 1px solid var(--brand-sand-100);
+}
+
+.nice-dataset-eyebrow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.nice-dataset-eyebrow a {
+  color: var(--brand-olive-700);
+}
+
+.nice-dataset-flag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.15rem 0.6rem;
+  color: var(--brand-teal-900);
+  background-color: var(--brand-sand-100);
+  border-radius: 9999px;
+  letter-spacing: 0.04em;
+}
+
+.nice-dataset-title {
+  margin: 0.5rem 0 0.75rem;
+  color: var(--brand-teal-900);
+  font-family: var(--brand-font-display);
+  font-size: clamp(1.75rem, 1.35rem + 1.2vw, 2.5rem);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.nice-dataset-head .notes {
+  max-width: 68ch;
+  color: var(--brand-muted);
+  font-size: 1.0625rem;
+}
+
+.nice-dataset-head .tags {
+  margin-top: 1rem;
+}
+
+.nice-dataset-head .tag-list {
+  margin: 0;
+  padding: 0;
+}
+
+.nice-dataset-facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: 0.75rem;
+  margin: 1.5rem 0 0;
+}
+
+.nice-dataset-facts > div {
+  padding: 0.875rem 1.125rem;
+  background-color: var(--brand-sand-50);
+  border: 1px solid var(--brand-sand-200);
+  border-radius: 1rem;
+}
+
+.nice-dataset-facts dt {
+  color: var(--brand-muted);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.nice-dataset-facts dd {
+  margin: 0.3rem 0 0;
+  color: var(--brand-teal-900);
+  font-weight: 600;
+}
+
+.nice-dataset-formats {
+  color: var(--brand-muted);
+  font-weight: 500;
+}
+
+.nice-dataset-actions {
+  margin-top: 1.25rem;
+}
+
+.resources > h2,
+.nice-dataset-details > h2 {
+  margin: 0 0 1rem;
+  color: var(--brand-teal-900);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.nice-dataset-details {
+  margin-top: 2.25rem;
+}
+
+.nice-dataset-details dl {
+  display: grid;
+  grid-template-columns: minmax(8rem, max-content) minmax(0, 1fr);
+  margin: 0;
+  border: 1px solid var(--brand-sand-200);
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.nice-dataset-details dl > div {
+  display: contents;
+}
+
+.nice-dataset-details dt,
+.nice-dataset-details dd {
+  margin: 0;
+  padding: 0.7rem 1.125rem;
+  border-top: 1px solid var(--brand-sand-100);
+}
+
+.nice-dataset-details dl > div:first-child > dt,
+.nice-dataset-details dl > div:first-child > dd {
+  border-top: 0;
+}
+
+.nice-dataset-details dt {
+  color: var(--brand-muted);
+  background-color: var(--brand-sand-50);
+  font-weight: 600;
+}
+
+.nice-dataset-details dd {
+  color: var(--brand-ink);
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 575.98px) {
+  .nice-dataset-details dl {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .nice-dataset-details dt {
+    padding-bottom: 0;
+    background-color: transparent;
+  }
+
+  .nice-dataset-details dd {
+    padding-top: 0.25rem;
+    border-top: 0;
+  }
+}
+
+/* CKAN puts the sidebar before the content; on phones the dataset comes first. */
+@media (max-width: 767.98px) {
+  .wrapper:has(.nice-dataset-head) {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .wrapper:has(.nice-dataset-head) > .primary {
+    order: -1;
+  }
+
+  .wrapper:has(.nice-dataset-head) > .secondary {
+    padding-right: 1.5rem;
+    padding-left: 1.5rem;
+    border-top: 1px solid var(--brand-sand-100);
+  }
+}
 
 /* ckanext-pages articles, written in Markdown or the WYSIWYG editor. */
 .nice-prose {

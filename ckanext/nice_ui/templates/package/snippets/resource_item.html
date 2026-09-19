@@ -1,0 +1,46 @@
+{% ckan_extends %}
+
+{#- Buttons instead of CKAN's Explore dropdown, which phones never showed:
+    Preview and Download stay in sight, editors get their links in a menu.
+    resource_item_explore_inner calls super() so XLoader's DataStore link stays. -#}
+{% block resource_item_description %}
+  <p class="description">
+    {%- if res.format %}<span class="nice-resource-format">{{ h.get_translated(res, 'format') }}</span>{% endif -%}
+    {%- if res.description %}<span>{{ h.markdown_extract(h.get_translated(res, 'description'), extract_length=140) }}</span>{% endif -%}
+  </p>
+{% endblock %}
+
+{% block resource_item_explore %}
+  {% if not url_is_edit %}
+    <div class="nice-resource-actions">
+      <a class="btn btn-default btn-sm" href="{{ url }}">
+        {% if res.has_views %}
+          <i class="fa fa-chart-bar" aria-hidden="true"></i> {{ _('Preview') }}
+        {% else %}
+          <i class="fa fa-info-circle" aria-hidden="true"></i> {{ _('More information') }}
+        {% endif %}
+      </a>
+      {% if res.url and h.is_url(res.url) %}
+        <a class="btn btn-primary btn-sm resource-url-analytics" href="{{ res.url }}" target="_blank" rel="noreferrer">
+          {% if res.has_views or res.url_type == 'upload' %}
+            <i class="fa fa-arrow-circle-down" aria-hidden="true"></i> {{ _('Download') }}
+          {% else %}
+            <i class="fa fa-external-link" aria-hidden="true"></i> {{ _('Go to resource') }}
+          {% endif %}
+        </a>
+      {% endif %}
+      {% if can_edit %}
+        <div class="dropdown">
+          <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="{{ _('Edit resource') }}">
+            <i class="fa fa-pencil" aria-hidden="true"></i><span class="visually-hidden">{{ _('Edit resource') }}</span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li>{% link_for _('Edit resource'), named_route=pkg.type ~ '_resource.edit', id=pkg.name, resource_id=res.id, class_='dropdown-item', icon='pencil' %}</li>
+            {% block resource_item_explore_inner scoped %}{{ super() }}{% endblock %}
+            <li>{% link_for _('Views'), named_route=pkg.type ~ '_resource.views', id=pkg.name, resource_id=res.id, class_='dropdown-item', icon='chart-bar' %}</li>
+          </ul>
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+{% endblock %}

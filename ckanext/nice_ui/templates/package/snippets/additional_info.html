@@ -1,0 +1,72 @@
+{#- CKAN's Field/Value table as a definition list; Last Updated is in the page
+    header. The block names are CKAN's, so extensions can still add rows. -#}
+<section class="additional-info nice-dataset-details">
+  <h2>{{ _('Additional Info') }}</h2>
+  <dl>
+    {% block package_additional_info %}
+      {% if pkg_dict.url %}
+        <div>
+          <dt>{{ _('Source') }}</dt>
+          <dd property="foaf:homepage">
+            {% if h.is_url(pkg_dict.url) %}
+              <a href="{{ pkg_dict.url }}" rel="foaf:homepage" target="_blank">{{ pkg_dict.url }}</a>
+            {% else %}
+              {{ pkg_dict.url }}
+            {% endif %}
+          </dd>
+        </div>
+      {% endif %}
+
+      {% if pkg_dict.author_email or pkg_dict.author %}
+        <div>
+          <dt>{{ _('Author') }}</dt>
+          <dd property="dc:creator">
+            {% if pkg_dict.author_email %}
+              {{ h.mail_to(email_address=pkg_dict.author_email, name=pkg_dict.author) }}
+            {% else %}
+              {{ pkg_dict.author }}
+            {% endif %}
+          </dd>
+        </div>
+      {% endif %}
+
+      {% if pkg_dict.maintainer_email or pkg_dict.maintainer %}
+        <div>
+          <dt>{{ _('Maintainer') }}</dt>
+          <dd property="dc:contributor">
+            {% if pkg_dict.maintainer_email %}
+              {{ h.mail_to(email_address=pkg_dict.maintainer_email, name=pkg_dict.maintainer) }}
+            {% else %}
+              {{ pkg_dict.maintainer }}
+            {% endif %}
+          </dd>
+        </div>
+      {% endif %}
+
+      {% if pkg_dict.version %}
+        <div><dt>{{ _('Version') }}</dt><dd>{{ pkg_dict.version }}</dd></div>
+      {% endif %}
+
+      {% if h.check_access('package_update', {'id': pkg_dict.id}) %}
+        <div><dt>{{ _('State') }}</dt><dd>{{ _(pkg_dict.state) }}</dd></div>
+      {% endif %}
+
+      {% if pkg_dict.metadata_created %}
+        <div>
+          <dt>{{ _('Created') }}</dt>
+          <dd>{% snippet 'snippets/local_friendly_datetime.html', datetime_obj=pkg_dict.metadata_created %}</dd>
+        </div>
+      {% endif %}
+
+      {% block extras scoped %}
+        {% for extra in h.sorted_extras(pkg_dict.extras) %}
+          {% set key, value = extra %}
+          <div rel="dc:relation">
+            <dt property="rdfs:label">{{ _(key|e) }}</dt>
+            <dd property="rdf:value">{{ value }}</dd>
+          </div>
+        {% endfor %}
+      {% endblock %}
+    {% endblock %}
+  </dl>
+</section>
