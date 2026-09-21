@@ -1,0 +1,41 @@
+{% ckan_extends %}
+
+{#- The dataset page's eyebrow (organization, flags) instead of CKAN's grey
+    "Private" badge in front of the title. -#}
+{% block heading %}
+  {% set is_draft = package.get('state', '').startswith('draft') %}
+  {% set is_deleted = package.get('state', '').startswith('deleted') %}
+  {#- Set by the organization and group pages; on the dataset's own
+      organization page its name would repeat on every card. -#}
+  {% set listing_group = g.get('group_dict') %}
+  {% set show_org = package.organization and not (listing_group and listing_group.id == package.organization.id) %}
+  {% if show_org or package.private or is_draft or is_deleted %}
+    <div class="nice-dataset-eyebrow nice-item-eyebrow">
+      {% if show_org %}
+        <span>{{ package.organization.title or package.organization.name }}</span>
+      {% endif %}
+      {% if package.private %}
+        <span class="nice-dataset-flag"><i class="fa fa-lock" aria-hidden="true"></i> {{ _('Private') }}</span>
+      {% endif %}
+      {% if is_draft %}
+        <span class="nice-dataset-flag">{{ _('Draft') }}</span>
+      {% elif is_deleted %}
+        <span class="nice-dataset-flag">{{ _('Deleted') }}</span>
+      {% endif %}
+    </div>
+  {% endif %}
+  <h2 class="dataset-heading">
+    {% block heading_title %}
+      <a href="{{ h.url_for('%s.read' % package.type, id=package.name) }}" title="{{ title }}">{{ title|truncate(80) }}</a>
+    {% endblock %}
+  </h2>
+{% endblock %}
+
+{% block resources %}
+  <div class="nice-item-foot">
+    {{ super() }}
+    {% if package.metadata_modified %}
+      <span class="nice-item-updated">{{ _('Last Updated') }} · {{ h.render_datetime(package.metadata_modified) }}</span>
+    {% endif %}
+  </div>
+{% endblock %}
