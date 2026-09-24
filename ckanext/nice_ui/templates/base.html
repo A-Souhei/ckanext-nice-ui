@@ -1,5 +1,15 @@
 {% ckan_extends %}
 
+{# Link previews in chat apps and social networks; core sets og:title on
+   dataset pages only, and no image anywhere. #}
+{% block meta %}
+  {{ super() }}
+  <meta property="og:site_name" content="{{ g.site_title }}" />
+  <meta property="og:image" content="{{ h.url_for_static('/nice-ui/social.png', qualified=True) }}" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+{% endblock %}
+
 {# After CKAN's theme, so equal-specificity rules here win. #}
 {% block styles %}
   {{ super() }}
