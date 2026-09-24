@@ -176,6 +176,41 @@ a:focus {
   background-color: var(--brand-lime-300);
 }
 
+.masthead .main-navbar ul li a {
+  white-space: nowrap;
+}
+
+/* The datasets dropdown. Selectors outrank the rules above, including a
+   hovered active parent, which would otherwise paint every link inside it. */
+.masthead .main-navbar .nice-nav-group ul.dropdown-menu {
+  min-width: 12rem;
+  padding: 0.375rem;
+  background-color: var(--brand-teal-900);
+  border: 1px solid rgb(255 255 255 / 0.12);
+  border-radius: 1rem;
+  box-shadow: 0 12px 32px rgb(0 31 25 / 0.35);
+}
+
+.masthead .main-navbar .nice-nav-group ul.dropdown-menu li a {
+  display: block;
+  padding: 0.5rem 0.875rem;
+  color: rgb(255 255 255 / 0.85);
+  background-color: transparent;
+  border-radius: 0.625rem;
+}
+
+.masthead .main-navbar .nice-nav-group ul.dropdown-menu li:hover a,
+.masthead .main-navbar .nice-nav-group ul.dropdown-menu li:focus-within a {
+  color: #fff;
+  background-color: rgb(255 255 255 / 0.08);
+}
+
+.masthead .main-navbar .nice-nav-group ul.dropdown-menu li.active a,
+.masthead .main-navbar .nice-nav-group ul.dropdown-menu li.active:hover a {
+  color: var(--brand-teal-950);
+  background-color: var(--brand-lime-300);
+}
+
 .masthead .site-search .form-control {
   color: #fff;
   background-color: rgb(255 255 255 / 0.1);
