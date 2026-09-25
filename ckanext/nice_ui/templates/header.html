@@ -6,13 +6,27 @@
 {% endblock %}
 
 {# Core's menu plus the ckanext-pages index. Groups stay in the list: whether
-   they show is ckanext.pages.group_menu's call. #}
+   they show is ckanext.pages.group_menu's call.
+
+   The datasets tab is built on its own so the tabs other extensions chain in
+   after it (Sah-Anai, publications, tutorials) land in its dropdown, each
+   extension keeping its own rule for when its tab shows. #}
 {% block header_site_navigation_tabs %}
   {% set dataset_type = h.default_package_type() %}
   {% set org_type = h.default_group_type('organization') %}
   {% set group_type = h.default_group_type('group') %}
-  {% set tabs = [
-       (dataset_type ~ '.search', h.humanize_entity_type('package', dataset_type, 'main nav') or _('Datasets'), ['dataset', 'resource']),
+  {% set datasets_label = h.humanize_entity_type('package', dataset_type, 'main nav') or _('Datasets') %}
+  {% set dataset_tabs = h.build_nav_main((dataset_type ~ '.search', _('All datasets'), ['dataset', 'resource'])) | string %}
+  {% if dataset_tabs.count('<li') > 1 %}
+    <li class="nice-nav-group dropdown{% if 'class="active"' in dataset_tabs %} active{% endif %}">
+      <a href="{{ h.url_for(dataset_type ~ '.search') }}" class="dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{ datasets_label }}</a>
+      <ul class="dropdown-menu">{{ dataset_tabs | safe }}</ul>
+    </li>
+    {% set tabs = [] %}
+  {% else %}
+    {% set tabs = [(dataset_type ~ '.search', datasets_label, ['dataset', 'resource'])] %}
+  {% endif %}
+  {% set tabs = tabs + [
        (org_type ~ '.index', h.humanize_entity_type('organization', org_type, 'main nav') or _('Organizations'), ['organization']),
        (group_type ~ '.index', h.humanize_entity_type('group', group_type, 'main nav') or _('Groups'), ['group'])] %}
   {% if h.nice_ui_pages_enabled() %}
@@ -26,7 +40,7 @@
 {% block header_logo %}
   <a class="tw:flex tw:items-center tw:gap-3 tw:py-1 tw:no-underline" href="{{ h.url_for('home.index') }}">
     {% if g.site_logo %}
-      <img class="tw:h-11 tw:w-auto" src="{{ h.url_for_static_or_external(g.site_logo) }}" alt="" />
+      <img class="tw:h-16 tw:w-auto" src="{{ h.url_for_static_or_external(g.site_logo) }}" alt="" />
     {% endif %}
     <span class="tw:flex tw:flex-col tw:leading-tight">
       <span class="tw:text-lg tw:font-bold tw:tracking-tight tw:text-white">{{ g.site_title }}</span>

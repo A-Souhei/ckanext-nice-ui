@@ -40,6 +40,10 @@ msgstr ""
 #: ckanext/nice_ui/templates/ckanext_pages/page.html:4
 #: ckanext/nice_ui/templates/ckanext_pages/page_edit.html:4
 #: ckanext/nice_ui/templates/ckanext_pages/pages_list.html:4
+#: ckanext/nice_ui/templates/header.html
+msgid "All datasets"
+msgstr "Tous les jeux de données"
+
 #: ckanext/nice_ui/templates/ckanext_pages/pages_list.html:21
 #: ckanext/nice_ui/templates/header.html:19
 msgid "Pages"
