@@ -27,7 +27,9 @@ COOKIE = "nice_ui_locale"
 COOKIE_MAX_AGE = 365 * 24 * 60 * 60
 
 # Requests that are not someone reading a page: sending any of these somewhere
-# else would break a call rather than translate it.
+# else would break a call rather than translate it. Kept alongside the endpoint
+# test below because these are real views in production — saml2auth's /acs and
+# /slo only look like static files on an install where SAML is switched off.
 SKIP_PREFIXES = ("/api", "/uploads", "/base", "/webassets", "/util", "/_",
                  "/favicon", "/robots.txt", "/saml2", "/acs", "/slo")
 
@@ -59,9 +61,26 @@ def _wanted():
     return remembered
 
 
+def _is_file():
+    """A file rather than a page.
+
+    Flask has matched the route by the time a before_request runs, so anything
+    served from a public directory says so itself — which listing prefixes
+    cannot, since `add_public_directory` gives every extension a root of its
+    own and /nice-ui/favicon.png was being redirected because of it. An Accept
+    header is no help here: it is the caller's wish, not what the URL is."""
+    endpoint = request.endpoint or ""
+    return endpoint == "static" or endpoint.endswith(".static")
+
+
 def _readable():
     return (request.method in ("GET", "HEAD")
+            and not _is_file()
             and not request.path.startswith(SKIP_PREFIXES)
+            # A path carrying dot segments would go out as
+            # "/fr/../../thing", which a browser resolves back past the prefix.
+            # It never leaves this origin, but a Location should mean what it says.
+            and ".." not in request.path
             and "text/html" in (request.headers.get("Accept") or ""))
 
 
