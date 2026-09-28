@@ -11,6 +11,9 @@ import ckan.plugins as p
 import ckan.plugins.toolkit as tk
 from ckan.lib.plugins import DefaultTranslation
 
+from ckanext.nice_ui import locale
+from ckanext.nice_ui.view_titles import view_title
+
 # CKAN's shipped defaults. Brand assets only replace these, so a logo or favicon
 # configured in the ini or by a sysadmin still wins.
 CKAN_DEFAULT_LOGO = "/base/images/ckan-logo.png"
@@ -151,6 +154,7 @@ class NiceUiPlugin(p.SingletonPlugin, DefaultTranslation):
     p.implements(p.IConfigurer)
     p.implements(p.ITemplateHelpers)
     p.implements(p.ITranslation)
+    p.implements(p.IMiddleware, inherit=True)
 
     def update_config(self, config):
         tk.add_template_directory(config, "templates")
@@ -162,6 +166,12 @@ class NiceUiPlugin(p.SingletonPlugin, DefaultTranslation):
         if config.get("ckan.favicon") == CKAN_DEFAULT_FAVICON:
             config["ckan.favicon"] = "/nice-ui/favicon.png"
 
+    def make_middleware(self, app, config):
+        # The locale lives in the URL and nowhere else, so it is lost the
+        # moment a link arrives without the prefix — coming back from the
+        # identity provider, most visibly.
+        return locale.remember(app)
+
     def get_helpers(self):
         return {
             "nice_ui_new_datasets": new_datasets,
@@ -170,4 +180,5 @@ class NiceUiPlugin(p.SingletonPlugin, DefaultTranslation):
             "nice_ui_pages_enabled": pages_enabled,
             "nice_ui_site_description": site_description,
             "nice_ui_public_urls": public_urls,
+            "nice_ui_view_title": view_title,
         }
