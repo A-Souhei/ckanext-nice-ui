@@ -1221,6 +1221,54 @@ a.tag:hover {
   line-height: 1.45;
 }
 
+/* Tables written in Markdown, wherever they are rendered — a dataset's notes,
+   a resource description, an organisation's blurb, a page. They are the only
+   tables on the portal carrying no class at all: CKAN and every extension ship
+   theirs with Bootstrap's, and the sanitiser strips every attribute from the
+   ones a contributor writes, alignment included. The signature is exact, so
+   nothing Bootstrap already styles is touched. */
+table:not([class]) {
+  width: 100%;
+  margin: 1.5rem 0;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+table:not([class]) th,
+table:not([class]) td {
+  padding: 0.5rem 0.875rem;
+  text-align: left;
+  vertical-align: top;
+  /* Alignment does not survive sanitising, so a column of numbers cannot be
+     right-aligned; tabular figures at least keep the digits in line. */
+  font-variant-numeric: tabular-nums;
+}
+
+table:not([class]) thead th {
+  color: var(--brand-teal-900);
+  border-bottom: 2px solid var(--brand-teal-900);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+table:not([class]) tbody tr + tr td {
+  border-top: 1px solid var(--brand-sand-200);
+}
+
+table:not([class]) tbody tr:hover td {
+  background: var(--brand-sand-50);
+}
+
+/* A wide table on a narrow screen scrolls on its own rather than stretching
+   the page sideways. */
+@media (max-width: 40rem) {
+  table:not([class]) {
+    display: block;
+    overflow-x: auto;
+  }
+}
+
 /* Initials avatars (and uploaded images) for users, organizations and groups. */
 .user-image {
   border-radius: 9999px;
