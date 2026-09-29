@@ -633,6 +633,13 @@ a:focus {
   border-bottom-color: var(--brand-lime-500);
 }
 
+/* CKAN writes a tab's icon and its label with nothing between them — the
+   page's tabs, the admin's, a resource's views — so the icon sat flush
+   against the text. */
+.nav-tabs a > i:first-child {
+  margin-right: 0.45em;
+}
+
 /* Buttons and forms ------------------------------------------------------ */
 
 .btn {
