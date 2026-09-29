@@ -641,6 +641,24 @@ a:focus {
   margin-right: 0.45em;
 }
 
+/* CKAN hides its "view not available" notice only once its script bundle has
+   put `js` on <html>, so a slow load showed it on every view for seconds.
+   The data-viewer module drops js-hide itself when a view really fails. */
+.data-viewer-error.js-hide {
+  display: none;
+}
+
+/* A spinner behind a view's frame until view-frames.js sees it load. */
+iframe[data-module="data-viewer"] {
+  min-height: 400px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='16' fill='none' stroke='%23dfe6d6' stroke-width='4'/%3E%3Cpath d='M20 4a16 16 0 0 1 16 16' fill='none' stroke='%234f6908' stroke-width='4' stroke-linecap='round'%3E%3CanimateTransform attributeName='transform' type='rotate' from='0 20 20' to='360 20 20' dur='0.8s' repeatCount='indefinite'/%3E%3C/path%3E%3C/svg%3E")
+    no-repeat center 4rem / 2.5rem;
+}
+
+iframe[data-module="data-viewer"].is-loaded {
+  background: none;
+}
+
 /* Buttons and forms ------------------------------------------------------ */
 
 .btn {

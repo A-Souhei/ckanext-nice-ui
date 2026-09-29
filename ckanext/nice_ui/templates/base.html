@@ -23,4 +23,7 @@
 {% block styles %}
   {{ super() }}
   {% asset 'nice-ui/main' %}
+  {% if request.endpoint and '_resource.' in request.endpoint %}
+    {% asset 'nice-ui/frames' %}
+  {% endif %}
 {% endblock %}
