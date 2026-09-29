@@ -5,6 +5,12 @@ main:
   contents:
     - nice-ui.css
 
+frames:
+  filters: rjsmin
+  output: nice-ui/%(version)s_frames.js
+  contents:
+    - view-frames.js
+
 extras:
   filters: rjsmin
   output: nice-ui/%(version)s_extras.js
