@@ -31,7 +31,8 @@ COOKIE_MAX_AGE = 365 * 24 * 60 * 60
 # test below because these are real views in production — saml2auth's /acs and
 # /slo only look like static files on an install where SAML is switched off.
 SKIP_PREFIXES = ("/api", "/uploads", "/base", "/webassets", "/util", "/_",
-                 "/favicon", "/robots.txt", "/saml2", "/acs", "/slo")
+                 "/favicon", "/robots.txt", "/saml2", "/acs", "/slo",
+                 "/user/saml2login")
 
 
 def _offered():
