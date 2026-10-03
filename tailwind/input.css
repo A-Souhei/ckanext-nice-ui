@@ -339,6 +339,11 @@ a:focus {
   .wrapper:not(.no-nav) > .primary {
     padding: 0;
   }
+
+  /* A resource page's full-width panel sits above the two cards. */
+  .wrapper:not(.no-nav) > .module-resource {
+    margin-bottom: 1.5rem;
+  }
 }
 
 .secondary .module {
