@@ -167,6 +167,45 @@
       </div>
     </section>
 
+    {# Mobile apps ---------------------------------------------------- #}
+    <section class="tw:relative tw:isolate tw:overflow-hidden tw:bg-teal-950 tw:py-20 tw:text-white tw:md:py-28">
+      <div aria-hidden="true" class="tw:absolute tw:-left-48 tw:top-1/3 tw:-z-10 tw:size-[36rem] tw:rounded-full tw:bg-teal-700/40 tw:blur-3xl"></div>
+      <div aria-hidden="true" class="tw:absolute tw:-right-40 tw:-top-40 tw:-z-10 tw:size-[32rem] tw:rounded-full tw:border tw:border-lime-300/15"></div>
+      <div aria-hidden="true" class="tw:absolute tw:-right-24 tw:-top-24 tw:-z-10 tw:size-[32rem] tw:rounded-full tw:border tw:border-lime-300/10"></div>
+      <div class="container">
+        <div class="tw:mx-auto tw:max-w-2xl tw:text-center">
+          <p class="nice-eyebrow tw:mb-4 tw:text-gold">{{ _('On your phone') }}</p>
+          <h2 class="tw:m-0 tw:font-display tw:text-4xl tw:leading-[1.05] tw:font-semibold tw:tracking-[-0.035em] tw:text-white tw:md:text-5xl">{{ _('Two apps, one ecosystem.') }}</h2>
+          <p class="tw:mt-6 tw:mb-0 tw:text-lg tw:leading-8 tw:text-white/75">{{ _('Farms record their work in Sah-Anai; Akademia shares what they learn with everyone.') }}</p>
+        </div>
+
+        <div class="tw:mt-16 tw:grid tw:grid-cols-[minmax(0,1fr)] tw:gap-16 tw:md:grid-cols-2 tw:md:gap-10 tw:lg:gap-20">
+          {% set apps = [
+            {'image': 'app-sah-anai.webp', 'eyebrow': _('Farm management'), 'name': 'Sah-Anai',
+             'alt': _('Sah-Anai home screen listing the farms of the signed-in user'),
+             'text': _('Run the farm from your phone: activities, finances, stock, harvests and the team, with Sophie, the farm assistant, always at hand. Farms can then publish their records as open data on Akademia.')},
+            {'image': 'app-akademia.webp', 'eyebrow': _('Open knowledge'), 'name': _('Akademia mobile'),
+             'alt': _('Akademia mobile home screen with search and the datasets, publications, tutorials and organizations sections'),
+             'text': _('The whole library in your pocket: datasets, publications and tutorials to search and read anywhere, and Sophie to answer your questions.')},
+          ] %}
+          {% for app in apps %}
+            <article class="tw:flex tw:flex-col tw:items-center tw:text-center {{ 'tw:md:mt-20' if loop.last }}">
+              <div class="tw:relative">
+                <div aria-hidden="true" class="tw:absolute tw:inset-x-6 tw:bottom-0 tw:top-10 tw:-z-10 tw:rounded-[3rem] tw:bg-lime-300/25 tw:blur-3xl"></div>
+                <div class="tw:w-[16rem] tw:rounded-[2.6rem] tw:bg-gradient-to-b tw:from-white/25 tw:to-white/5 tw:p-[0.55rem] tw:shadow-2xl tw:ring-1 tw:ring-white/15 tw:transition tw:duration-500 tw:hover:-translate-y-2 {{ 'tw:rotate-[2deg]' if loop.last else 'tw:-rotate-[2deg]' }} tw:sm:w-[18rem]">
+                  <img class="tw:block tw:aspect-[720/1378] tw:h-auto tw:w-full tw:rounded-[2.1rem] tw:bg-sand-50 tw:object-cover tw:object-top" loading="lazy" width="720" height="1378"
+                       alt="{{ app.alt }}" src="{{ h.url_for_static('/nice-ui/photos/' ~ app.image) }}" />
+                </div>
+              </div>
+              <p class="nice-eyebrow tw:mt-12 tw:mb-3 tw:text-lime-300">{{ app.eyebrow }}</p>
+              <h3 class="tw:m-0 tw:font-display tw:text-3xl tw:font-semibold tw:tracking-[-0.03em] tw:text-white">{{ app.name }}</h3>
+              <p class="tw:mt-4 tw:mb-0 tw:max-w-md tw:text-base tw:leading-7 tw:text-white/70">{{ app.text }}</p>
+            </article>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+
     {# New datasets --------------------------------------------------- #}
     {% if new_datasets %}
       <section class="tw:py-16 tw:md:py-20">

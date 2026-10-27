@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ckanext-nice-ui 0.1.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-09-17 08:20+0000\n"
+"POT-Creation-Date: 2026-10-27 13:13+0000\n"
 "PO-Revision-Date: 2026-09-16 14:40+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fr\n"
@@ -17,22 +17,26 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.15.0\n"
 
-#: ckanext/nice_ui/plugin.py:28
+#: ckanext/nice_ui/plugin.py:31
 msgid "Open data for agriculture"
 msgstr "Données ouvertes pour l'agriculture"
 
-#: ckanext/nice_ui/templates/header.html:15
-#: ckanext/nice_ui/templates/home/about.html:108
+#: ckanext/nice_ui/templates/header.html:18
+#: ckanext/nice_ui/templates/home/about.html:110
 #: ckanext/nice_ui/templates/home/index.html:10
 msgid "Datasets"
 msgstr ""
 
-#: ckanext/nice_ui/templates/header.html:16
+#: ckanext/nice_ui/templates/header.html:19
+msgid "All datasets"
+msgstr "Tous les jeux de données"
+
+#: ckanext/nice_ui/templates/header.html:30
 #: ckanext/nice_ui/templates/home/index.html:64
 msgid "Organizations"
 msgstr ""
 
-#: ckanext/nice_ui/templates/header.html:17
+#: ckanext/nice_ui/templates/header.html:31
 #: ckanext/nice_ui/templates/home/index.html:65
 msgid "Groups"
 msgstr ""
@@ -40,17 +44,13 @@ msgstr ""
 #: ckanext/nice_ui/templates/ckanext_pages/page.html:4
 #: ckanext/nice_ui/templates/ckanext_pages/page_edit.html:4
 #: ckanext/nice_ui/templates/ckanext_pages/pages_list.html:4
-#: ckanext/nice_ui/templates/header.html
-msgid "All datasets"
-msgstr "Tous les jeux de données"
-
 #: ckanext/nice_ui/templates/ckanext_pages/pages_list.html:21
-#: ckanext/nice_ui/templates/header.html:19
+#: ckanext/nice_ui/templates/header.html:33
 msgid "Pages"
 msgstr "Pages"
 
-#: ckanext/nice_ui/templates/header.html:21
-#: ckanext/nice_ui/templates/home/about.html:22
+#: ckanext/nice_ui/templates/header.html:35
+#: ckanext/nice_ui/templates/home/about.html:24
 msgid "About"
 msgstr ""
 
@@ -163,6 +163,8 @@ msgid "Visibility"
 msgstr ""
 
 #: ckanext/nice_ui/templates/ckanext_pages/base_form.html:101
+#: ckanext/nice_ui/templates/package/read.html:12
+#: ckanext/nice_ui/templates/snippets/package_item.html:18
 msgid "Private"
 msgstr ""
 
@@ -264,17 +266,17 @@ msgstr ""
 "un projet ou une équipe en particulier, autour d'un thème spécifique, ou "
 "simplement à aider à parcourir et découvrir vos jeux de données publiés."
 
-#: ckanext/nice_ui/templates/home/about.html:24
+#: ckanext/nice_ui/templates/home/about.html:26
 msgid "Open data on agroecology in Madagascar, shared by Sahan'Aina."
 msgstr ""
 "Des données ouvertes sur l'agroécologie à Madagascar, partagées par "
 "Sahan'Aina."
 
-#: ckanext/nice_ui/templates/home/about.html:30
+#: ckanext/nice_ui/templates/home/about.html:32
 msgid "A farm where every resource feeds the next"
 msgstr "Une ferme où chaque ressource nourrit la suivante"
 
-#: ckanext/nice_ui/templates/home/about.html:31
+#: ckanext/nice_ui/templates/home/about.html:33
 msgid ""
 "Sahan'Aina is an integrated agroecological farm in the highlands of "
 "Madagascar. Created in 2024, it links market gardening, an orchard, "
@@ -286,7 +288,7 @@ msgstr ""
 "élevages, pisciculture et production de fertilisants dans un même système"
 " : ce qui sort d'un atelier devient l'entrée du suivant."
 
-#: ckanext/nice_ui/templates/home/about.html:32
+#: ckanext/nice_ui/templates/home/about.html:34
 msgid ""
 "The goal is concrete: produce better with less dependence, regenerate "
 "soils and show that a resilient farm can also be economically viable."
@@ -295,31 +297,31 @@ msgstr ""
 "régénérer les sols et démontrer qu'une ferme résiliente peut aussi être "
 "économiquement viable."
 
-#: ckanext/nice_ui/templates/home/about.html:38
+#: ckanext/nice_ui/templates/home/about.html:40
 msgid "pilot farm"
 msgstr "de ferme pilote"
 
-#: ckanext/nice_ui/templates/home/about.html:39
+#: ckanext/nice_ui/templates/home/about.html:41
 msgid "interconnected poles"
 msgstr "pôles interconnectés"
 
-#: ckanext/nice_ui/templates/home/about.html:40
+#: ckanext/nice_ui/templates/home/about.html:42
 msgid "chemical inputs"
 msgstr "intrant chimique"
 
-#: ckanext/nice_ui/templates/home/about.html:41
+#: ckanext/nice_ui/templates/home/about.html:43
 msgid "founded"
 msgstr "création"
 
-#: ckanext/nice_ui/templates/home/about.html:51
+#: ckanext/nice_ui/templates/home/about.html:53
 msgid "The system"
 msgstr "Le système"
 
-#: ckanext/nice_ui/templates/home/about.html:51
+#: ckanext/nice_ui/templates/home/about.html:53
 msgid "Three poles, one continuous cycle"
 msgstr "Trois pôles, un cycle continu"
 
-#: ckanext/nice_ui/templates/home/about.html:52
+#: ckanext/nice_ui/templates/home/about.html:54
 msgid ""
 "The activities do not work in silos: they exchange matter, energy and "
 "value."
@@ -327,71 +329,71 @@ msgstr ""
 "Les productions ne fonctionnent pas en silos : elles échangent de la "
 "matière, de l'énergie et de la valeur."
 
-#: ckanext/nice_ui/templates/home/about.html:56
+#: ckanext/nice_ui/templates/home/about.html:58
 msgid "Livestock and protein"
 msgstr "Élevage et protéines"
 
-#: ckanext/nice_ui/templates/home/about.html:57
+#: ckanext/nice_ui/templates/home/about.html:59
 msgid "Poultry, ducks and turkeys; rabbits raised for their manure"
 msgstr "Volailles, canards et dindons ; lapins élevés pour leur fumier"
 
-#: ckanext/nice_ui/templates/home/about.html:58
+#: ckanext/nice_ui/templates/home/about.html:60
 msgid "Fish farming: tilapia, carp and catfish"
 msgstr "Pisciculture : tilapia, carpe et poisson-chat"
 
-#: ckanext/nice_ui/templates/home/about.html:59
+#: ckanext/nice_ui/templates/home/about.html:61
 msgid "Beekeeping and crop pollination"
 msgstr "Apiculture et pollinisation des cultures"
 
-#: ckanext/nice_ui/templates/home/about.html:60
+#: ckanext/nice_ui/templates/home/about.html:62
 msgid "Black soldier fly larvae and mealworms"
 msgstr "Larves BSF et vers de farine"
 
-#: ckanext/nice_ui/templates/home/about.html:61
+#: ckanext/nice_ui/templates/home/about.html:63
 msgid "Crops and food"
 msgstr "Cultures et alimentation"
 
-#: ckanext/nice_ui/templates/home/about.html:62
+#: ckanext/nice_ui/templates/home/about.html:64
 msgid "Market gardening fertilised entirely with rabbit manure"
 msgstr "Maraîchage entièrement fertilisé par le fumier de lapin"
 
-#: ckanext/nice_ui/templates/home/about.html:63
+#: ckanext/nice_ui/templates/home/about.html:65
 msgid "Fodder grown on the farm"
 msgstr "Fourrages produits directement sur la ferme"
 
-#: ckanext/nice_ui/templates/home/about.html:64
+#: ckanext/nice_ui/templates/home/about.html:66
 msgid "A diverse orchard suited to the climate"
 msgstr "Verger diversifié et adapté au climat"
 
-#: ckanext/nice_ui/templates/home/about.html:65
+#: ckanext/nice_ui/templates/home/about.html:67
 msgid "Mulching, ollas and recycled fish-pond water"
 msgstr "Paillage, ollas et eau piscicole recyclée"
 
-#: ckanext/nice_ui/templates/home/about.html:66
+#: ckanext/nice_ui/templates/home/about.html:68
 msgid "Recovery and fertility"
 msgstr "Valorisation et fertilité"
 
-#: ckanext/nice_ui/templates/home/about.html:67
+#: ckanext/nice_ui/templates/home/about.html:69
 msgid "Composting of manure and crop residues"
 msgstr "Compostage des déjections et résidus"
 
-#: ckanext/nice_ui/templates/home/about.html:68
+#: ckanext/nice_ui/templates/home/about.html:70
 msgid "Vermicompost and liquid fertiliser"
 msgstr "Lombricompost et fertilisant liquide"
 
-#: ckanext/nice_ui/templates/home/about.html:69
+#: ckanext/nice_ui/templates/home/about.html:71
 msgid "Biochar made from woody plant matter"
 msgstr "Biochar issu des matières lignocellulosiques"
 
-#: ckanext/nice_ui/templates/home/about.html:70
+#: ckanext/nice_ui/templates/home/about.html:72
 msgid "Everything returns to the soil to restart the cycle"
 msgstr "Retour au sol pour relancer le cycle"
 
-#: ckanext/nice_ui/templates/home/about.html:89
+#: ckanext/nice_ui/templates/home/about.html:91
 msgid "Why share the data"
 msgstr "Pourquoi partager les données"
 
-#: ckanext/nice_ui/templates/home/about.html:90
+#: ckanext/nice_ui/templates/home/about.html:92
 msgid ""
 "Sahan'Aina wants its model to travel. Akademia Sahan'Aina publishes the "
 "data behind the farm's work so that farmers, students, researchers and "
@@ -401,11 +403,11 @@ msgstr ""
 "données issues du travail de la ferme pour que agriculteurs, étudiants, "
 "chercheurs et partenaires puissent s'en inspirer et les réutiliser."
 
-#: ckanext/nice_ui/templates/home/about.html:94
+#: ckanext/nice_ui/templates/home/about.html:96
 msgid "Regenerate"
 msgstr "Régénérer"
 
-#: ckanext/nice_ui/templates/home/about.html:94
+#: ckanext/nice_ui/templates/home/about.html:96
 msgid ""
 "Improve soil structure and fertility for the long term, without chemical "
 "inputs."
@@ -413,71 +415,71 @@ msgstr ""
 "Améliorer durablement la structure et la fertilité des sols sans intrant "
 "chimique."
 
-#: ckanext/nice_ui/templates/home/about.html:95
+#: ckanext/nice_ui/templates/home/about.html:97
 msgid "Pass on"
 msgstr "Transmettre"
 
-#: ckanext/nice_ui/templates/home/about.html:95
+#: ckanext/nice_ui/templates/home/about.html:97
 msgid "Train people in circular practices and grow lasting rural skills."
 msgstr ""
 "Former aux pratiques circulaires et faire grandir des compétences rurales"
 " durables."
 
-#: ckanext/nice_ui/templates/home/about.html:96
+#: ckanext/nice_ui/templates/home/about.html:98
 msgid "Reproduce"
 msgstr "Reproduire"
 
-#: ckanext/nice_ui/templates/home/about.html:96
+#: ckanext/nice_ui/templates/home/about.html:98
 msgid "Document a model that other Malagasy farms can adapt to their own context."
 msgstr ""
 "Documenter un modèle que d'autres fermes malgaches peuvent adapter à leur"
 " contexte."
 
-#: ckanext/nice_ui/templates/home/about.html:108
+#: ckanext/nice_ui/templates/home/about.html:110
 msgid "Using the data"
 msgstr "Utiliser les données"
 
-#: ckanext/nice_ui/templates/home/about.html:111
+#: ckanext/nice_ui/templates/home/about.html:113
 msgid "Every dataset states its licence: check it before reusing the data."
 msgstr ""
 "Chaque jeu de données indique sa licence : vérifiez-la avant de "
 "réutiliser les données."
 
-#: ckanext/nice_ui/templates/home/about.html:112
+#: ckanext/nice_ui/templates/home/about.html:114
 msgid "Preview tables and maps in your browser, or download the files."
 msgstr ""
 "Prévisualisez tableaux et cartes dans votre navigateur, ou téléchargez "
 "les fichiers."
 
-#: ckanext/nice_ui/templates/home/about.html:113
+#: ckanext/nice_ui/templates/home/about.html:115
 msgid "Automate downloads and updates with the API."
 msgstr "Automatisez téléchargements et mises à jour avec l'API."
 
-#: ckanext/nice_ui/templates/home/about.html:123
+#: ckanext/nice_ui/templates/home/about.html:125
 #: ckanext/nice_ui/templates/home/index.html:40
 #: ckanext/nice_ui/templates/home/index.html:140
 msgid "Search datasets"
 msgstr ""
 
-#: ckanext/nice_ui/templates/home/about.html:124
+#: ckanext/nice_ui/templates/home/about.html:126
 msgid "API documentation"
 msgstr "Documentation de l'API"
 
-#: ckanext/nice_ui/templates/home/about.html:126
+#: ckanext/nice_ui/templates/home/about.html:128
 msgid "Akademia Sahan'Aina runs on CKAN, the open-source data portal software."
 msgstr ""
 "Akademia Sahan'Aina fonctionne avec CKAN, le logiciel libre de portail de"
 " données."
 
-#: ckanext/nice_ui/templates/home/about.html:130
+#: ckanext/nice_ui/templates/home/about.html:132
 msgid "Contact"
 msgstr "Contact"
 
-#: ckanext/nice_ui/templates/home/about.html:130
+#: ckanext/nice_ui/templates/home/about.html:132
 msgid "Talk to the team"
 msgstr "Parler à l'équipe"
 
-#: ckanext/nice_ui/templates/home/about.html:131
+#: ckanext/nice_ui/templates/home/about.html:133
 msgid "A question about a dataset, or data to share? Write to us."
 msgstr ""
 "Une question sur un jeu de données, ou des données à partager ? Écrivez-"
@@ -555,7 +557,56 @@ msgstr "Agroécologie"
 msgid "Nothing is lost. Every resource feeds the next."
 msgstr "Rien ne se perd. Chaque ressource nourrit la suivante."
 
-#: ckanext/nice_ui/templates/home/index.html:175
+#: ckanext/nice_ui/templates/home/index.html:177
+msgid "On your phone"
+msgstr "Sur votre téléphone"
+
+#: ckanext/nice_ui/templates/home/index.html:178
+msgid "Two apps, one ecosystem."
+msgstr "Deux applications, un même écosystème."
+
+#: ckanext/nice_ui/templates/home/index.html:179
+msgid ""
+"Farms record their work in Sah-Anai; Akademia shares what they learn with"
+" everyone."
+msgstr "Les fermes consignent leur travail dans Sah-Anai ; Akademia partage ce qu'elles apprennent avec tous."
+
+#: ckanext/nice_ui/templates/home/index.html:184
+msgid "Farm management"
+msgstr "Gestion de ferme"
+
+#: ckanext/nice_ui/templates/home/index.html:185
+msgid "Sah-Anai home screen listing the farms of the signed-in user"
+msgstr "Écran d'accueil de Sah-Anai listant les fermes de l'utilisateur connecté"
+
+#: ckanext/nice_ui/templates/home/index.html:186
+msgid ""
+"Run the farm from your phone: activities, finances, stock, harvests and "
+"the team, with Sophie, the farm assistant, always at hand. Farms can then"
+" publish their records as open data on Akademia."
+msgstr "Gérez la ferme depuis votre téléphone : activités, finances, stock, récoltes et équipe, avec Sophie, l'assistante de la ferme, toujours à portée de main. Les fermes peuvent ensuite publier leurs données en accès libre sur Akademia."
+
+#: ckanext/nice_ui/templates/home/index.html:187
+msgid "Open knowledge"
+msgstr "Savoirs ouverts"
+
+#: ckanext/nice_ui/templates/home/index.html:187
+msgid "Akademia mobile"
+msgstr "Akademia mobile"
+
+#: ckanext/nice_ui/templates/home/index.html:188
+msgid ""
+"Akademia mobile home screen with search and the datasets, publications, "
+"tutorials and organizations sections"
+msgstr "Écran d'accueil d'Akademia mobile avec la recherche et les rubriques jeux de données, publications, tutoriels et organisations"
+
+#: ckanext/nice_ui/templates/home/index.html:189
+msgid ""
+"The whole library in your pocket: datasets, publications and tutorials to"
+" search and read anywhere, and Sophie to answer your questions."
+msgstr "Toute la bibliothèque dans votre poche : jeux de données, publications et tutoriels à rechercher et lire partout, et Sophie pour répondre à vos questions."
+
+#: ckanext/nice_ui/templates/home/index.html:214
 msgid "New datasets"
 msgstr "Nouveaux jeux de données"
 
@@ -588,6 +639,83 @@ msgstr ""
 "fichiers), accompagnée d'une description et d'autres informations, à une "
 "URL fixe. Les jeux de données sont ce que les utilisateurs voient "
 "lorsqu'ils recherchent des données."
+
+#: ckanext/nice_ui/templates/package/read.html:15
+#: ckanext/nice_ui/templates/snippets/package_item.html:21
+msgid "Draft"
+msgstr ""
+
+#: ckanext/nice_ui/templates/package/read.html:18
+#: ckanext/nice_ui/templates/snippets/package_item.html:23
+msgid "Deleted"
+msgstr ""
+
+#: ckanext/nice_ui/templates/package/read.html:33
+msgid "Resources"
+msgstr ""
+
+#: ckanext/nice_ui/templates/package/read.html:40
+msgid "License"
+msgstr ""
+
+#: ckanext/nice_ui/templates/package/read.html:45
+#: ckanext/nice_ui/templates/snippets/package_item.html:38
+msgid "Last Updated"
+msgstr ""
+
+#: ckanext/nice_ui/templates/package/snippets/additional_info.html:4
+msgid "Additional Info"
+msgstr ""
+
+#: ckanext/nice_ui/templates/package/snippets/additional_info.html:9
+msgid "Source"
+msgstr ""
+
+#: ckanext/nice_ui/templates/package/snippets/additional_info.html:22
+msgid "Author"
+msgstr ""
+
+#: ckanext/nice_ui/templates/package/snippets/additional_info.html:35
+msgid "Maintainer"
+msgstr ""
+
+#: ckanext/nice_ui/templates/package/snippets/additional_info.html:47
+msgid "Version"
+msgstr ""
+
+#: ckanext/nice_ui/templates/package/snippets/additional_info.html:51
+msgid "State"
+msgstr ""
+
+#: ckanext/nice_ui/templates/package/snippets/additional_info.html:56
+msgid "Created"
+msgstr ""
+
+#: ckanext/nice_ui/templates/package/snippets/resource_item.html:18
+msgid "Preview"
+msgstr ""
+
+#: ckanext/nice_ui/templates/package/snippets/resource_item.html:20
+msgid "More information"
+msgstr ""
+
+#: ckanext/nice_ui/templates/package/snippets/resource_item.html:26
+msgid "Download"
+msgstr ""
+
+#: ckanext/nice_ui/templates/package/snippets/resource_item.html:28
+msgid "Go to resource"
+msgstr ""
+
+#: ckanext/nice_ui/templates/package/snippets/resource_item.html:34
+#: ckanext/nice_ui/templates/package/snippets/resource_item.html:35
+#: ckanext/nice_ui/templates/package/snippets/resource_item.html:38
+msgid "Edit resource"
+msgstr ""
+
+#: ckanext/nice_ui/templates/package/snippets/resource_item.html:40
+msgid "Views"
+msgstr ""
 
 #: ckanext/nice_ui/templates/snippets/custom_form_fields.html:18
 msgid "Custom fields"
